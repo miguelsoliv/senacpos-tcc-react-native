@@ -10,7 +10,7 @@ export default function SplashScreen({ navigation }) {
     Animated.timing(fadeAnim,
       {
         toValue: 1,
-        duration: 750,
+        duration: 700,
         useNativeDriver: true
       },
     ).start(() => {
@@ -18,7 +18,7 @@ export default function SplashScreen({ navigation }) {
         Animated.timing(fadeAnim,
           {
             toValue: 0,
-            duration: 750,
+            duration: 700,
             useNativeDriver: true
           }
         ).start(() => navigation.navigate('LoginScreen'))
