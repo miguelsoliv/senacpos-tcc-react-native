@@ -14,7 +14,9 @@ To finalize installation of `react-native-gesture-handler` for Android:
 If you are using a native navigation library like `wix/react-native-navigation` you need to follow a different setup for your Android app to work properly. The reason is that both native navigation libraries and Gesture Handler library need to use their own special subclasses of ReactRootView.
 Instead of changing Java code you will need to wrap every screen component using `gestureHandlerRootHOC` on the JS side. This can be done for example at the stage when you register your screens.
 - [React Navigation Stack](https://github.com/react-navigation/stack): `npm i react-navigation-stack`
+- [React Navigation Drawer](https://github.com/react-navigation/drawer): `npm i react-navigation-drawer`
 - [Styled Components](https://github.com/styled-components/styled-components): `npm i styled-components`
+- [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons): `npm i react-native-vector-icons` -> `react-native link react-native-vector-icons`
 
 ## Troubleshooting
 

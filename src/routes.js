@@ -7,8 +7,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 import SplashScreen from './pages/SplashScreen'
 import Login from './pages/Login'
 import Home from './pages/Home'
-import DrawerScreen2 from './pages/SplashScreen'
-import DrawerScreen3 from './pages/Login'
+import DrawerScreen2 from './pages/Home'
+import DrawerScreen3 from './pages/Home'
 import SidebarHeader from './components/SidebarHeader'
 
 const DrawerNavigator = createDrawerNavigator({
@@ -42,8 +42,6 @@ const DrawerNavigator = createDrawerNavigator({
 }, {
   contentComponent: SidebarHeader,
   drawerWidth: Dimensions.get('window').width * 0.8,
-  statusBarAnimation: 'fade',
-  hideStatusBar: true,
   contentOptions: {
     activeBackgroundColor: 'rgba(255, 96, 144, 0.2)',
     activeTintColor: 'rgb(216, 27, 96)',
