@@ -8,7 +8,6 @@ import SplashScreen from './pages/SplashScreen'
 import Login from './pages/Login'
 import Home from './pages/Home'
 import DrawerScreen2 from './pages/Home'
-import DrawerScreen3 from './pages/Home'
 import SidebarHeader from './components/SidebarHeader'
 
 const DrawerNavigator = createDrawerNavigator({
@@ -24,18 +23,9 @@ const DrawerNavigator = createDrawerNavigator({
   DrawerScreen2: {
     screen: DrawerScreen2,
     navigationOptions: {
-      drawerLabel: 'Menu 2',
+      drawerLabel: 'Perfil',
       drawerIcon: ({ tintColor }) => (
-        <Icon name='home' size={24} color={tintColor} />
-      )
-    }
-  },
-  DrawerScreen3: {
-    screen: DrawerScreen3,
-    navigationOptions: {
-      drawerLabel: 'Menu 3',
-      drawerIcon: ({ tintColor }) => (
-        <Icon name='home' size={24} color={tintColor} />
+        <Icon name='person' size={24} color={tintColor} />
       )
     }
   }

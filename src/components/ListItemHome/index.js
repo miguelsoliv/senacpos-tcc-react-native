@@ -5,19 +5,21 @@ import {
   InfoHeaderContainer, ManicureName, ManicurePrice, Description
 } from './styles'
 
-export default ListItemHome = ({ item, translateX }) => (
-  <AnimatedContainer style={{ transform: [{ translateX }] }}>
-    <TouchableContainer onPress={() => console.log(`Name: ${item.name}`)}>
-      <HeaderContainer>
-        <ManicureImage source={item.photo} />
+export default function ListItemHome({ item, translateX }) {
+  return (
+    <AnimatedContainer style={{ transform: [{ translateX }] }}>
+      <TouchableContainer onPress={() => console.log(`Name: ${item.name}`)}>
+        <HeaderContainer>
+          <ManicureImage source={item.photo} />
 
-        <InfoHeaderContainer>
-          <ManicureName>{item.name}</ManicureName>
-          <ManicurePrice>R$35,00+</ManicurePrice>
-        </InfoHeaderContainer>
-      </HeaderContainer>
+          <InfoHeaderContainer>
+            <ManicureName>{item.name}</ManicureName>
+            <ManicurePrice>R$35,00+</ManicurePrice>
+          </InfoHeaderContainer>
+        </HeaderContainer>
 
-      <Description>{item.description}</Description>
-    </TouchableContainer>
-  </AnimatedContainer>
-)
+        <Description>{item.description}</Description>
+      </TouchableContainer>
+    </AnimatedContainer>
+  )
+}

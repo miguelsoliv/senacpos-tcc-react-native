@@ -2,10 +2,15 @@ import { Animated } from 'react-native'
 import styled from 'styled-components'
 
 export const AnimatedContainer = styled(Animated.View)`
-  margin-top: 10px;
+  margin: 7px 4px 5px 4px;
+  border-radius: 10px;
+  border-width: 3px;
 `
 
-export const TouchableContainer = styled.TouchableOpacity``
+export const TouchableContainer = styled.TouchableOpacity`
+  border-radius: 10px;
+  background-color: #f0f0f0;
+`
 
 export const HeaderContainer = styled.View`
   padding: 15px;

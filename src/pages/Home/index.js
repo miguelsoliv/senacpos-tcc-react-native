@@ -83,16 +83,6 @@ export default function Home({ navigation }) {
             })}
           />}
           showsVerticalScrollIndicator={false}
-
-          ItemSeparatorComponent={() => (
-            <View style={[{
-              marginTop: 20,
-              alignSelf: 'center',
-              backgroundColor: '#333',
-              height: 0.5,
-              width: '65%'
-            }]} />
-          )}
         />
       </Content>
     </Container>
