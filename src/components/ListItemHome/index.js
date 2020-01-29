@@ -1,8 +1,7 @@
 import React from 'react'
-import { View } from 'react-native'
 import {
   AnimatedContainer, TouchableContainer, HeaderContainer, ManicureImage,
-  InfoHeaderContainer, ManicureName, ManicurePrice, Description
+  InfoHeaderContainer, ManicureName, Description
 } from './styles'
 
 export default function ListItemHome({ item, translateX }) {
@@ -14,11 +13,10 @@ export default function ListItemHome({ item, translateX }) {
 
           <InfoHeaderContainer>
             <ManicureName>{item.name}</ManicureName>
-            <ManicurePrice>R$35,00+</ManicurePrice>
+            <Description>{item.description}</Description>
           </InfoHeaderContainer>
-        </HeaderContainer>
 
-        <Description>{item.description}</Description>
+        </HeaderContainer>
       </TouchableContainer>
     </AnimatedContainer>
   )

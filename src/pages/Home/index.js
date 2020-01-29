@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { FlatList, Animated, View } from 'react-native'
+import { FlatList, Animated, TextInput, View } from 'react-native'
 import ListItemHome from '../../components/ListItemHome'
+
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import sampleAvatar from '../../assets/Ebichu.jpg'
+import backgroundImage from '../../assets/esmalte.png'
+
 import {
-  Container, HeaderContainer, HeaderTitle, Content
+  Container, BackgroundImage, BackgroundImageContainer, HeaderContainer,
+  HeaderTitle, Content
 } from './styles'
 
 export default function Home({ navigation }) {
@@ -63,6 +67,12 @@ export default function Home({ navigation }) {
 
   return (
     <Container>
+      <BackgroundImageContainer>
+        <BackgroundImage
+          resizeMode='contain'
+          source={backgroundImage} />
+      </BackgroundImageContainer>
+
       <HeaderContainer>
         <Icon
           onPress={() => navigation.toggleDrawer()}
@@ -73,15 +83,33 @@ export default function Home({ navigation }) {
       </HeaderContainer>
 
       <Content>
+        <View style={{
+          flexDirection: 'row',
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          paddingHorizontal: 10,
+          marginHorizontal: 4,
+          marginVertical: 10,
+          borderRadius: 6,
+          alignItems: 'center'
+        }}>
+          <TextInput style={{ flex: 1 }}
+            placeholderTextColor='#606060'
+            placeholder={'Pesquisar por serviço'}
+          />
+
+          <Icon name='search' size={24} color='#606060' />
+        </View>
+
         <FlatList
           data={manicures}
           keyExtractor={item => String(item.id)}
-          renderItem={({ item }) => <ListItemHome item={item} translateX={
-            animatedValue.interpolate({
-              inputRange: [0, 1],
-              outputRange: [delayValue, 1]
-            })}
-          />}
+          renderItem={({ item }) =>
+            <ListItemHome item={item} translateX={
+              animatedValue.interpolate({
+                inputRange: [0, 1],
+                outputRange: [delayValue, 1]
+              })}
+            />}
           showsVerticalScrollIndicator={false}
         />
       </Content>

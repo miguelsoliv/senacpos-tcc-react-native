@@ -1,14 +1,30 @@
 import React from 'react'
 import { Dimensions } from 'react-native'
-import { createAppContainer, createSwitchNavigator } from 'react-navigation'
-import { createStackNavigator } from 'react-navigation-stack'
+
+import { createAppContainer } from 'react-navigation'
 import { createDrawerNavigator } from 'react-navigation-drawer'
+import createAnimatedSwitchNavigator from 'react-navigation-animated-switch'
+import { Transition } from 'react-native-reanimated'
+
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import SplashScreen from './pages/SplashScreen'
-import Login from './pages/Login'
-import Home from './pages/Home'
+
+import { SplashScreen, Login, Home } from './pages'
 import DrawerScreen2 from './pages/Home'
 import SidebarHeader from './components/SidebarHeader'
+
+const SignRoutes = createAnimatedSwitchNavigator({
+  Login,
+  //CreateAccount,
+  //ForgotPassword
+}, {
+  transitionViewStyle: { backgroundColor: 'rgb(248, 228, 239)' },
+  transition: (
+    <Transition.Together>
+      <Transition.Out type="fade" durationMs={200} interpolation="easeIn" />
+      <Transition.In type="fade" durationMs={500} />
+    </Transition.Together>
+  )
+})
 
 const DrawerNavigator = createDrawerNavigator({
   Home: {
@@ -44,22 +60,29 @@ const DrawerNavigator = createDrawerNavigator({
   }
 })
 
-const InitialScreen = createStackNavigator({
-  SplashScreen: {
-    screen: SplashScreen
-  }
-}, { headerMode: 'none' })
+const AppRoutes = createAnimatedSwitchNavigator({
+  DrawerNavigator,
+  //ManicureDetails
+}, {
+  transition: (
+    <Transition.Together>
+      <Transition.Out type="fade" durationMs={200} interpolation="easeIn" />
+      <Transition.In type="fade" durationMs={500} />
+    </Transition.Together>
+  )
+})
 
-const LoginHomeScreen = createStackNavigator({
-  LoginScreen: {
-    screen: Login
-  },
-  DrawerNav: {
-    screen: DrawerNavigator
-  }
-}, { headerMode: 'none' })
-
-export default createAppContainer(createSwitchNavigator({
-  InitialScreen,
-  LoginHomeScreen
+export default createAppContainer(createAnimatedSwitchNavigator({
+  SplashScreen,
+  SignRoutes,
+  AppRoutes
+}, {
+  headerMode: 'none',
+  transitionViewStyle: { backgroundColor: 'rgb(248, 228, 239)' },
+  transition: (
+    <Transition.Together>
+      <Transition.Out type="fade" durationMs={300} interpolation="easeOut" />
+      <Transition.In type="fade" durationMs={300} />
+    </Transition.Together>
+  )
 }))

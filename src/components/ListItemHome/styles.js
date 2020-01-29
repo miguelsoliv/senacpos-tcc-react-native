@@ -2,32 +2,35 @@ import { Animated } from 'react-native'
 import styled from 'styled-components'
 
 export const AnimatedContainer = styled(Animated.View)`
-  margin: 7px 4px 5px 4px;
-  border-radius: 10px;
-  border-width: 3px;
+  margin: 10px 4px 5px 4px;
+  border-radius: 6px;
+  border-width: 1.5px;
 `
 
 export const TouchableContainer = styled.TouchableOpacity`
-  border-radius: 10px;
-  background-color: #f0f0f0;
+  border-radius: 6px;
+  background-color: rgba(252, 242, 238, 0.85);
 `
 
 export const HeaderContainer = styled.View`
-  padding: 15px;
+  padding: 12px;
   flex-direction: row;
   align-items: center;
 `
 
 export const ManicureImage = styled.Image`
-  width: 60px;
-  height: 60px;
-  border-radius: 30px;
-  border-width: 1.5;
+  width: 65px;
+  height: 65px;
+  border-radius: 6px;
+  border-width: 1;
   border-color: #333;
-  margin-right: 10px;
 `
 
-export const InfoHeaderContainer = styled.View``
+export const InfoHeaderContainer = styled.View`
+  flex: 1;
+  height: 100%;
+  margin-left: 10px;
+`
 
 export const ManicureName = styled.Text`
   color: #333;
@@ -35,12 +38,9 @@ export const ManicureName = styled.Text`
   font-weight: bold;
 `
 
-export const ManicurePrice = styled.Text`
-  color: #333;
-  font-style: italic;
-`
-
-export const Description = styled.Text`
-  padding: 5px 15px 5px 15px;
+export const Description = styled.Text.attrs({
+  numberOfLines: 2
+})`
+  padding: 5px 0 5px 0;
   line-height: 18px;
 `

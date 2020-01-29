@@ -15,6 +15,7 @@ If you are using a native navigation library like `wix/react-native-navigation` 
 Instead of changing Java code you will need to wrap every screen component using `gestureHandlerRootHOC` on the JS side. This can be done for example at the stage when you register your screens.
 - [React Navigation Stack](https://github.com/react-navigation/stack): `npm i react-navigation-stack`
 - [React Navigation Drawer](https://github.com/react-navigation/drawer): `npm i react-navigation-drawer`
+- [React Navigation Animated Switch](https://github.com/react-navigation/animated-switch): `npm i react-navigation-animated-switch`
 - [Styled Components](https://github.com/styled-components/styled-components): `npm i styled-components`
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons): `npm i react-native-vector-icons` -> `react-native link react-native-vector-icons`
 

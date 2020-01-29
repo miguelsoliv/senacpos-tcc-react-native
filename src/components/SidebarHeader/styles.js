@@ -77,7 +77,9 @@ export const ModalContainerButtons = styled.View`
   padding-top: 15;
 `
 
-export const ModalButtonTouchable = styled.TouchableHighlight`
+export const ModalButtonTouchable = styled.TouchableOpacity.attrs({
+  activeOpacity: 1
+})`
   padding: 5px 0 5px 0;
   margin: 10px 5px 10px 5px;
 `
