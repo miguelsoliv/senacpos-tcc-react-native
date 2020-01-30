@@ -1,29 +1,33 @@
 import React, { useState, useRef } from 'react'
-import { TouchableWithoutFeedback, Keyboard, Platform } from 'react-native'
+import {
+  TouchableWithoutFeedback, Keyboard, Platform, Alert
+} from 'react-native'
 
 import FullscreenBackgroundImage from '../../components/FullscreenBackgroundImage'
 import AnimatedLogo from '../../components/AnimatedLogo'
 
 import {
   ContainerSafeArea, ContainerAvoidView, FormContainer, ScrollFormContainer,
-  InputTitle, InputContainer, Input, EnvelopeIcon, LockIcon, LoginButton,
-  LoginButtonText, StyledIndicator, NewAccountButton, NewAccountButtonText,
-  ForgotPasswordButton, ForgotPasswordButtonText
+  InputTitle, InputContainer, Input, PersonIcon, EnvelopeIcon, LockIcon,
+  StyledIndicator, CreateAccountButton, CreateAccountButtonText,
+  BackToLoginButton, BackToLoginButtonText, UserIcon
 } from './styles'
 
-export default function Login({ navigation }) {
+export default function CreateAccount({ navigation }) {
   const [isLoading, setIsLoading] = useState(false)
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const inputEmailRef = useRef()
   const inputPasswordRef = useRef()
 
   sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms))
   }
 
-  handleLogin = async () => {
-    if (!email || !password) return
+  handleAccountCreation = async () => {
+    if (!name || !email || !password) return
 
     Keyboard.dismiss()
 
@@ -31,7 +35,21 @@ export default function Login({ navigation }) {
 
     await sleep(2000)
 
-    navigation.navigate('Home')
+    Alert.alert(
+      'Sucesso!',
+      'Sua conta foi criada, agora faça login para entrar no app.',
+      [
+        {
+          text: 'Fazer login',
+          onPress: () => navigation.navigate('Login')
+        }
+      ]
+    )
+
+    /*Alert.alert(
+      'Ops...',
+      'Falha na criação da conta, verifique seus dados e tente novamente!'
+    )*/
 
     setIsLoading(false)
   }
@@ -56,11 +74,25 @@ export default function Login({ navigation }) {
                 <StyledIndicator />
               ) : (
                   <ScrollFormContainer>
-                    <InputTitle>USUÁRIO</InputTitle>
+                    <InputTitle>NOME</InputTitle>
+                    <InputContainer>
+                      <Input
+                        blurOnSubmit={false}
+                        placeholder='Digite seu nome'
+                        onChangeText={text => setName(text)}
+                        value={name}
+                        returnKeyType='next'
+                        onSubmitEditing={() => inputEmailRef.current.focus()}
+                      />
+                      <UserIcon />
+                    </InputContainer>
+
+                    <InputTitle>E-MAIL</InputTitle>
                     <InputContainer>
                       <Input
                         blurOnSubmit={false}
                         keyboardType='email-address'
+                        ref={inputEmailRef}
                         placeholder='Digite seu e-mail'
                         onChangeText={text => setEmail(text)}
                         value={email}
@@ -79,30 +111,26 @@ export default function Login({ navigation }) {
                         onChangeText={text => setPassword(text)}
                         value={password}
                         returnKeyType='done'
-                        onSubmitEditing={handleLogin}
+                        onSubmitEditing={handleAccountCreation}
                       />
                       <LockIcon />
                     </InputContainer>
 
-                    <LoginButton onPress={handleLogin}>
-                      <LoginButtonText>LOGAR</LoginButtonText>
-                    </LoginButton>
-
-                    <NewAccountButton
-                      onPress={() => navigation.navigate('CreateAccount')}
+                    <CreateAccountButton
+                      onPress={handleAccountCreation}
                     >
-                      <NewAccountButtonText>
-                        NÃO TENHO CONTA
-                      </NewAccountButtonText>
-                    </NewAccountButton>
+                      <CreateAccountButtonText>
+                        CRIAR CONTA
+                      </CreateAccountButtonText>
+                    </CreateAccountButton>
 
-                    <ForgotPasswordButton
-                      onPress={() => navigation.navigate('ForgotPassword')}
+                    <BackToLoginButton
+                      onPress={() => navigation.navigate('Login')}
                     >
-                      <ForgotPasswordButtonText>
-                        Esqueci minha senha
-                      </ForgotPasswordButtonText>
-                    </ForgotPasswordButton>
+                      <BackToLoginButtonText>
+                        Voltar
+                      </BackToLoginButtonText>
+                    </BackToLoginButton>
                   </ScrollFormContainer>
                 )
             }

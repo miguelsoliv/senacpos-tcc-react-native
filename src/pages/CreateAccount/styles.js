@@ -52,6 +52,14 @@ export const Input = styled.TextInput.attrs({
   color: #fff;
 `
 
+export const UserIcon = styled(Icon).attrs({
+  name: 'person-outline'
+})`
+  color: #ccc;
+  font-size: 20px;
+  margin-right: 12px;
+`
+
 export const EnvelopeIcon = styled(Icon).attrs({
   name: 'mail-outline'
 })`
@@ -68,25 +76,7 @@ export const LockIcon = styled(Icon).attrs({
   margin-right: 12px;
 `
 
-export const LoginButton = styled.TouchableOpacity`
-  height: 42px;
-  align-self: center;
-  background-color: rgb(199, 29, 125);
-  width: 70%;
-  border-radius: 6;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-`
-
-export const LoginButtonText = styled.Text`
-  color: #eff0ed;
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 2.5px;
-`
-
-export const NewAccountButton = styled.TouchableOpacity`
+export const CreateAccountButton = styled.TouchableOpacity`
   height: 42px;
   align-self: center;
   background-color: rgb(150, 25, 130);
@@ -97,19 +87,19 @@ export const NewAccountButton = styled.TouchableOpacity`
   margin-top: 10px;
 `
 
-export const NewAccountButtonText = styled.Text`
+export const CreateAccountButtonText = styled.Text`
   color: #eff0ed;
   font-size: 14.5px;
   font-weight: bold;
   letter-spacing: 2px;
 `
 
-export const ForgotPasswordButton = styled.TouchableOpacity`
+export const BackToLoginButton = styled.TouchableOpacity`
   margin: 18px 0 25px 0;
   align-items: center;
 `
 
-export const ForgotPasswordButtonText = styled.Text`
+export const BackToLoginButtonText = styled.Text`
   color: #888;
   font-size: 16px;
   text-shadow-color: #ddd;

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import appLogo from '../../assets/logo.png'
+
 import { Container, StyledImage } from './styles'
 
 export default function SplashScreen({ navigation }) {
@@ -11,7 +11,7 @@ export default function SplashScreen({ navigation }) {
 
   return (
     <Container>
-      <StyledImage source={appLogo} resizeMode='contain' />
+      <StyledImage resizeMode='contain' />
     </Container>
   )
 }

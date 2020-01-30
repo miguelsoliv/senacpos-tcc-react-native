@@ -1,8 +1,12 @@
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
+import headerBackground from '../../assets/headerBackground.jpg'
+
 import styled from 'styled-components'
 
-export const ScrollContainer = styled.ScrollView``
-
-export const HeaderBackground = styled.ImageBackground`
+export const HeaderBackground = styled.ImageBackground.attrs({
+  source: headerBackground
+})`
   width: 100%;
   padding: 48px 16px 16px 16px;
 `
@@ -55,37 +59,15 @@ export const LogoutContainer = styled.View`
   margin: 16px 0 0 16px;
 `
 
+export const LogoutIcon = styled(Icon).attrs({
+  name: 'exit-to-app'
+})`
+  color: grey;
+  font-size: 24px;
+`
+
 export const LogoutText = styled.Text`
   margin-left: 32px;
   font-weight: bold;
   color: #111;
-`
-
-export const ModalTitle = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-`
-
-export const ModalMessage = styled.Text`
-  font-size: 16px;
-  margin-top: 8px;
-`
-
-export const ModalContainerButtons = styled.View`
-  flex-direction: row;
-  justify-content: flex-end;
-  padding-top: 15;
-`
-
-export const ModalButtonTouchable = styled.TouchableOpacity.attrs({
-  activeOpacity: 1
-})`
-  padding: 5px 0 5px 0;
-  margin: 10px 5px 10px 5px;
-`
-
-export const ModalButtonText = styled.Text`
-  font-weight: bold;
-  font-size: 16px;
-  margin: 0 10px 0 10px;
 `

@@ -13,16 +13,10 @@ export const ContainerSafeArea = styled.SafeAreaView`
 `
 
 export const FormContainer = styled.View`
-  flex: 1.5;
+  flex: 1;
   width: 80%;
   left: 8%;
-  justify-content: flex-end;
 `
-
-export const ScrollFormContainer = styled.ScrollView.attrs({
-  keyboardShouldPersistTaps: 'handled',
-  showsVerticalScrollIndicator: false
-})``
 
 export const InputTitle = styled.Text`
   font-size: 16px;
@@ -60,33 +54,7 @@ export const EnvelopeIcon = styled(Icon).attrs({
   margin-right: 12px;
 `
 
-export const LockIcon = styled(Icon).attrs({
-  name: 'lock-outline'
-})`
-  color: #ccc;
-  font-size: 20px;
-  margin-right: 12px;
-`
-
-export const LoginButton = styled.TouchableOpacity`
-  height: 42px;
-  align-self: center;
-  background-color: rgb(199, 29, 125);
-  width: 70%;
-  border-radius: 6;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10px;
-`
-
-export const LoginButtonText = styled.Text`
-  color: #eff0ed;
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 2.5px;
-`
-
-export const NewAccountButton = styled.TouchableOpacity`
+export const RecoverPasswordButton = styled.TouchableOpacity`
   height: 42px;
   align-self: center;
   background-color: rgb(150, 25, 130);
@@ -97,19 +65,19 @@ export const NewAccountButton = styled.TouchableOpacity`
   margin-top: 10px;
 `
 
-export const NewAccountButtonText = styled.Text`
+export const RecoverPasswordButtonText = styled.Text`
   color: #eff0ed;
   font-size: 14.5px;
   font-weight: bold;
   letter-spacing: 2px;
 `
 
-export const ForgotPasswordButton = styled.TouchableOpacity`
+export const BackToLoginButton = styled.TouchableOpacity`
   margin: 18px 0 25px 0;
   align-items: center;
 `
 
-export const ForgotPasswordButtonText = styled.Text`
+export const BackToLoginButtonText = styled.Text`
   color: #888;
   font-size: 16px;
   text-shadow-color: #ddd;

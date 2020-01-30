@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { FlatList, Animated, TextInput, View } from 'react-native'
+import { FlatList, Animated } from 'react-native'
+
+import FullscreenBackgroundImage from '../../components/FullscreenBackgroundImage'
 import ListItemHome from '../../components/ListItemHome'
 
-import Icon from 'react-native-vector-icons/MaterialIcons'
 import sampleAvatar from '../../assets/Ebichu.jpg'
-import backgroundImage from '../../assets/esmalte.png'
 
 import {
-  Container, BackgroundImage, BackgroundImageContainer, HeaderContainer,
-  HeaderTitle, Content
+  Container, HeaderContainer, HeaderIconMenu, HeaderTitle, Content,
+  SearchContainer, SearchInput, SearchIcon
 } from './styles'
 
-export default function Home({ navigation }) {
-  const delayValue = 500
-  const animatedValue = new Animated.Value(0)
+export default function Home({ navigation, isFocused }) {
+  const animDelayValue = 500
+  const [listAnimValue] = useState(new Animated.Value(0))
   const [manicures, setManicures] = useState([
     {
       id: 1,
@@ -58,59 +58,44 @@ export default function Home({ navigation }) {
     }])
 
   useEffect(() => {
-    Animated.spring(animatedValue, {
-      toValue: 1,
+    Animated.spring(listAnimValue, {
+      toValue: isFocused ? 1 : 0,
       tension: 20,
       useNativeDriver: true
     }).start()
-  }, [])
+  }, [isFocused])
 
   return (
     <Container>
-      <BackgroundImageContainer>
-        <BackgroundImage
-          resizeMode='contain'
-          source={backgroundImage} />
-      </BackgroundImageContainer>
+      <FullscreenBackgroundImage />
 
       <HeaderContainer>
-        <Icon
-          onPress={() => navigation.toggleDrawer()}
-          name='menu' size={30} color='rgb(248, 228, 239)'
-          style={{ marginLeft: 6 }} />
+        <HeaderIconMenu onPress={() => navigation.toggleDrawer()} />
 
         <HeaderTitle>MENU PRINCIPAL</HeaderTitle>
       </HeaderContainer>
 
       <Content>
-        <View style={{
-          flexDirection: 'row',
-          backgroundColor: 'rgba(255, 255, 255, 0.95)',
-          paddingHorizontal: 10,
-          marginHorizontal: 4,
-          marginVertical: 10,
-          borderRadius: 6,
-          alignItems: 'center'
-        }}>
-          <TextInput style={{ flex: 1 }}
-            placeholderTextColor='#606060'
-            placeholder={'Pesquisar por serviço'}
-          />
-
-          <Icon name='search' size={24} color='#606060' />
-        </View>
+        <SearchContainer>
+          <SearchInput placeholder={'Pesquisar por serviço'} />
+          <SearchIcon />
+        </SearchContainer>
 
         <FlatList
           data={manicures}
           keyExtractor={item => String(item.id)}
-          renderItem={({ item }) =>
-            <ListItemHome item={item} translateX={
-              animatedValue.interpolate({
-                inputRange: [0, 1],
-                outputRange: [delayValue, 1]
-              })}
-            />}
           showsVerticalScrollIndicator={false}
+          renderItem={({ item }) =>
+            <ListItemHome
+              item={item}
+              translateX={
+                listAnimValue.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [animDelayValue, 1]
+                })
+              }
+            />
+          }
         />
       </Content>
     </Container>

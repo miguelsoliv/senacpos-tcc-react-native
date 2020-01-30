@@ -1,4 +1,5 @@
 import { Animated } from 'react-native'
+
 import styled from 'styled-components'
 
 export const AnimatedContainer = styled(Animated.View)`

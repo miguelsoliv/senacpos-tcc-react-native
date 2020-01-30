@@ -1,3 +1,5 @@
+import Icon from 'react-native-vector-icons/MaterialIcons'
+
 import styled from 'styled-components'
 
 export const Container = styled.SafeAreaView`
@@ -5,18 +7,26 @@ export const Container = styled.SafeAreaView`
   background-color: rgb(248, 228, 239);
 `
 
-export const BackgroundImageContainer = styled.View`
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  bottom: -8%;
-  left: -45%;
-  right: 0;
+export const SearchContainer = styled.View`
+  flex-direction: row;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 0 10px 0 10px;
+  margin: 10px 4px 10px 4px;
+  border-radius: 6px;
+  align-items: center;
 `
 
-export const BackgroundImage = styled.Image`
-  aspect-ratio: 0.3;
-  opacity: 0.55;
+export const SearchInput = styled.TextInput.attrs({
+  placeholderTextColor: '#606060'
+})`
+  flex: 1;
+`
+
+export const SearchIcon = styled(Icon).attrs({
+  name: 'search'
+})`
+  color: #606060;
+  font-size: 24px;
 `
 
 export const HeaderContainer = styled.View`
@@ -25,6 +35,14 @@ export const HeaderContainer = styled.View`
   width: 100%;
   flex-direction: row;
   align-items: center;
+`
+
+export const HeaderIconMenu = styled(Icon).attrs({
+  name: 'menu'
+})`
+  color: rgb(248, 228, 239);
+  font-size: 30px;
+  margin-left: 6px;
 `
 
 export const HeaderTitle = styled.Text`
