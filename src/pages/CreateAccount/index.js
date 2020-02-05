@@ -6,11 +6,15 @@ import {
 import FullscreenBackgroundImage from '../../components/FullscreenBackgroundImage'
 import AnimatedLogo from '../../components/AnimatedLogo'
 
+import { createAccount } from '../../services/api'
+import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
+import storage from '../../services/storage'
+
 import {
   ContainerSafeArea, ContainerAvoidView, FormContainer, ScrollFormContainer,
-  InputTitle, InputContainer, Input, PersonIcon, EnvelopeIcon, LockIcon,
+  InputTitle, InputContainer, Input, UserIcon, EnvelopeIcon, LockIcon,
   StyledIndicator, CreateAccountButton, CreateAccountButtonText,
-  BackToLoginButton, BackToLoginButtonText, UserIcon
+  BackToLoginButton, BackToLoginButtonText
 } from './styles'
 
 export default function CreateAccount({ navigation }) {
@@ -22,10 +26,6 @@ export default function CreateAccount({ navigation }) {
   const inputEmailRef = useRef()
   const inputPasswordRef = useRef()
 
-  sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
-
   handleAccountCreation = async () => {
     if (!name || !email || !password) return
 
@@ -33,25 +33,28 @@ export default function CreateAccount({ navigation }) {
 
     setIsLoading(true)
 
-    await sleep(2000)
+    const response = await createAccount(name.trim(), email.trim(), password)
+
+    setIsLoading(false)
+
+    if (response.data.message) {
+      Alert.alert('Ops...', HandleAPIErrorMessage(response.data.message))
+      return
+    }
+
+    storage.setToken(response.data.token)
+    storage.setUser(response.data.user)
 
     Alert.alert(
-      'Sucesso!',
-      'Sua conta foi criada, agora faça login para entrar no app.',
+      'Bem-vindo(a)!',
+      'Sua conta foi criada com sucesso.',
       [
         {
-          text: 'Fazer login',
-          onPress: () => navigation.navigate('Login')
+          text: 'Entrar',
+          onPress: () => navigation.navigate('Home')
         }
       ]
     )
-
-    /*Alert.alert(
-      'Ops...',
-      'Falha na criação da conta, verifique seus dados e tente novamente!'
-    )*/
-
-    setIsLoading(false)
   }
 
   return (

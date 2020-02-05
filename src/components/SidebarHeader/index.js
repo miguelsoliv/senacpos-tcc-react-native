@@ -2,6 +2,8 @@ import React from 'react'
 import { ScrollView, TouchableWithoutFeedback, Alert } from 'react-native'
 import { DrawerNavigatorItems } from 'react-navigation-drawer'
 
+import storage from '../../services/storage'
+
 import {
   HeaderBackground, DrawerItemsContainer,
   InitialLetterContainer, InitialLetterText, ProfileName, Divider,
@@ -35,7 +37,12 @@ export default function SidebarHeader(props) {
               },
               {
                 text: 'Sim',
-                onPress: () => props.navigation.navigate('Login')
+                onPress: () => {
+                  storage.setToken(null)
+                  storage.setUser(null)
+
+                  props.navigation.navigate('Login')
+                }
               }
             ],
             { cancelable: true }

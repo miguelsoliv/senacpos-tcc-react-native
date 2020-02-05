@@ -18,6 +18,8 @@ Instead of changing Java code you will need to wrap every screen component using
 - [React Navigation Animated Switch](https://github.com/react-navigation/animated-switch): `npm i react-navigation-animated-switch`
 - [Styled Components](https://github.com/styled-components/styled-components): `npm i styled-components`
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons): `npm i react-native-vector-icons` -> `react-native link react-native-vector-icons`
+- [axios](https://github.com/axios/axios): `npm i axios`
+- [React Native Async Storage](https://github.com/react-native-community/async-storage): `npm i @react-native-community/async-storage`
 
 ## Troubleshooting
 

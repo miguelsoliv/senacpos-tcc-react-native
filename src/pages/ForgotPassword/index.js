@@ -6,6 +6,8 @@ import {
 import FullscreenBackgroundImage from '../../components/FullscreenBackgroundImage'
 import AnimatedLogo from '../../components/AnimatedLogo'
 
+import { forgotPassword } from '../../services/api'
+
 import {
   ContainerSafeArea, ContainerAvoidView, FormContainer, InputTitle,
   InputContainer, Input, EnvelopeIcon, StyledIndicator, RecoverPasswordButton,
@@ -18,43 +20,41 @@ export default function ForgotPassword({ navigation }) {
 
   const emailInputRef = useRef()
 
-  sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
-
-  handleLogin = async () => {
+  handleForgotPass = async () => {
     if (!email) return
 
     Keyboard.dismiss()
 
     setIsLoading(true)
 
-    await sleep(2000)
-
-    Alert.alert(
-      'Sucesso!',
-      'Cheque seu e-mail para instruções de recuperação de senha!',
-      [
-        {
-          text: 'OK',
-          onPress: () => navigation.navigate('Login')
-        }
-      ]
-    )
-
-    /*Alert.alert(
-      'Ops...',
-      'Houve um erro ao tentar recuperar sua senha.',
-      [
-        {
-          text: 'OK',
-          style: 'default',
-          onPress: () => emailInputRef.current.focus()
-        }
-      ]
-    )*/
+    const response = await forgotPassword(email.trim())
 
     setIsLoading(false)
+
+    if (response.data.email) {
+      Alert.alert(
+        'Sucesso!',
+        'Cheque seu e-mail para instruções de recuperação de senha.',
+        [
+          {
+            text: 'OK',
+            onPress: () => navigation.navigate('Login')
+          }
+        ]
+      )
+    } else {
+      Alert.alert(
+        'Ops...',
+        HandleAPIErrorMessage(response.data.message),
+        [
+          {
+            text: 'Ok',
+            style: 'default',
+            onPress: () => emailInputRef.current.focus()
+          }
+        ]
+      )
+    }
   }
 
   return (
@@ -86,12 +86,12 @@ export default function ForgotPassword({ navigation }) {
                         onChangeText={text => setEmail(text)}
                         value={email}
                         returnKeyType='done'
-                        onSubmitEditing={handleLogin}
+                        onSubmitEditing={handleForgotPass}
                       />
                       <EnvelopeIcon />
                     </InputContainer>
 
-                    <RecoverPasswordButton onPress={handleLogin}>
+                    <RecoverPasswordButton onPress={handleForgotPass}>
                       <RecoverPasswordButtonText>
                         RECUPERAR SENHA
                       </RecoverPasswordButtonText>

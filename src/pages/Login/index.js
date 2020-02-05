@@ -1,8 +1,17 @@
 import React, { useState, useRef } from 'react'
-import { TouchableWithoutFeedback, Keyboard, Platform } from 'react-native'
+import {
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
+  Alert
+} from 'react-native'
 
 import FullscreenBackgroundImage from '../../components/FullscreenBackgroundImage'
 import AnimatedLogo from '../../components/AnimatedLogo'
+
+import { signin } from '../../services/api'
+import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
+import storage from '../../services/storage'
 
 import {
   ContainerSafeArea, ContainerAvoidView, FormContainer, ScrollFormContainer,
@@ -18,10 +27,6 @@ export default function Login({ navigation }) {
 
   const inputPasswordRef = useRef()
 
-  sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms))
-  }
-
   handleLogin = async () => {
     if (!email || !password) return
 
@@ -29,11 +34,19 @@ export default function Login({ navigation }) {
 
     setIsLoading(true)
 
-    await sleep(2000)
-
-    navigation.navigate('Home')
+    const response = await signin(email.trim(), password)
 
     setIsLoading(false)
+
+    if (response.data.message) {
+      Alert.alert('Ops...', HandleAPIErrorMessage(response.data.message))
+      return
+    }
+
+    storage.setToken(response.data.token)
+    storage.setUser(response.data.user)
+
+    navigation.navigate('Home')
   }
 
   return (
