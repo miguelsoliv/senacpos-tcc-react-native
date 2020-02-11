@@ -10,16 +10,16 @@ import {
   LogoutContainer, LogoutText, LogoutIcon
 } from './styles'
 
-const teste = 'usuário 001'
+const username = storage.getUser()
 
 export default function SidebarHeader(props) {
   return (
     <ScrollView>
       <HeaderBackground>
         <InitialLetterContainer>
-          <InitialLetterText>{teste.toUpperCase().substr(0, 1)}</InitialLetterText>
+          <InitialLetterText>{username.toUpperCase().substr(0, 1)}</InitialLetterText>
         </InitialLetterContainer>
-        <ProfileName>Bem-vindo(a) {teste}</ProfileName>
+        <ProfileName>Bem-vindo(a) {username}</ProfileName>
       </HeaderBackground>
 
       <DrawerItemsContainer>
