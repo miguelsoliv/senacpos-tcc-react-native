@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { FlatList, Animated } from 'react-native'
+import { Animated } from 'react-native'
 
-import FullscreenBackgroundImage from '../../components/FullscreenBackgroundImage'
-import ListItemHome from '../../components/ListItemHome'
+import {
+  FullscreenBackgroundImage, HeaderNavigation, ListItemHome
+} from '../../components'
 
 import sampleAvatar from '../../assets/Ebichu.jpg'
 
-import {
-  Container, HeaderContainer, HeaderIconMenu, HeaderTitle, Content,
-  SearchContainer, SearchInput, SearchIcon
-} from './styles'
+import { Container, Content, StyledFlatList } from './styles'
 
 export default function Home({ navigation, isFocused }) {
   const animDelayValue = 500
@@ -55,7 +53,8 @@ export default function Home({ navigation, isFocused }) {
       name: 'Manicure 7',
       description: 'Serviços da Manicure 7: ---',
       photo: sampleAvatar
-    }])
+    }
+  ])
 
   useEffect(() => {
     Animated.spring(listAnimValue, {
@@ -69,22 +68,15 @@ export default function Home({ navigation, isFocused }) {
     <Container>
       <FullscreenBackgroundImage />
 
-      <HeaderContainer>
-        <HeaderIconMenu onPress={() => navigation.toggleDrawer()} />
-
-        <HeaderTitle>MENU PRINCIPAL</HeaderTitle>
-      </HeaderContainer>
+      <HeaderNavigation
+        navigation={navigation}
+        headerTitle={'MENU PRINCIPAL'}
+      />
 
       <Content>
-        <SearchContainer>
-          <SearchInput placeholder={'Pesquisar por serviço'} />
-          <SearchIcon />
-        </SearchContainer>
-
-        <FlatList
+        <StyledFlatList
           data={manicures}
           keyExtractor={item => String(item.id)}
-          showsVerticalScrollIndicator={false}
           renderItem={({ item }) =>
             <ListItemHome
               item={item}

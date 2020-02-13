@@ -13,7 +13,7 @@ const storage = {
   },
 
   getUser() {
-    return JSON.parse(AsyncStorage.getItem('@SenacTCC:user'))
+    return AsyncStorage.getItem('@SenacTCC:user')
   },
   setUser(user) {
     if (user === null) {

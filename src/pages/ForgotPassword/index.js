@@ -3,8 +3,7 @@ import {
   TouchableWithoutFeedback, Keyboard, Platform, Alert
 } from 'react-native'
 
-import FullscreenBackgroundImage from '../../components/FullscreenBackgroundImage'
-import AnimatedLogo from '../../components/AnimatedLogo'
+import { AnimatedLogo, FullscreenBackgroundImage } from '../../components'
 
 import { forgotPassword } from '../../services/api'
 

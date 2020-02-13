@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ScrollView, TouchableWithoutFeedback, Alert } from 'react-native'
 import { DrawerNavigatorItems } from 'react-navigation-drawer'
 
@@ -10,9 +10,18 @@ import {
   LogoutContainer, LogoutText, LogoutIcon
 } from './styles'
 
-const username = storage.getUser()
-
 export default function SidebarHeader(props) {
+  const [username, setUsername] = useState('')
+
+  useEffect(() => {
+    getUsername()
+  }, [])
+
+  async function getUsername() {
+    const { name } = JSON.parse(await storage.getUser())
+    setUsername(name)
+  }
+
   return (
     <ScrollView>
       <HeaderBackground>

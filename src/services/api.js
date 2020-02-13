@@ -19,3 +19,11 @@ export function createAccount(name, email, password) {
 export function forgotPassword(email) {
   return api.post('/forgot-password', { email })
 }
+
+export function updateUser(id, name, email, password, token) {
+  return api.put(`/users/${id}`, { name, email, password }, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+}

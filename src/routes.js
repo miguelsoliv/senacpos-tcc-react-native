@@ -9,9 +9,9 @@ import { Transition } from 'react-native-reanimated'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import {
-  SplashScreen, Login, CreateAccount, ForgotPassword, Home
+  SplashScreen, Login, CreateAccount, ForgotPassword, Home, Profile
 } from './pages'
-import DrawerScreen2 from './pages/Login'
+
 import SidebarHeader from './components/SidebarHeader'
 
 const SignRoutes = createAnimatedSwitchNavigator({
@@ -38,8 +38,8 @@ const DrawerNavigator = createDrawerNavigator({
       )
     }
   },
-  DrawerScreen2: {
-    screen: DrawerScreen2,
+  Profile: {
+    screen: withNavigationFocus(Profile),
     navigationOptions: {
       drawerLabel: 'Perfil',
       drawerIcon: ({ tintColor }) => (

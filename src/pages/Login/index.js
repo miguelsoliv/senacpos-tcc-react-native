@@ -6,8 +6,7 @@ import {
   Alert
 } from 'react-native'
 
-import FullscreenBackgroundImage from '../../components/FullscreenBackgroundImage'
-import AnimatedLogo from '../../components/AnimatedLogo'
+import { AnimatedLogo, FullscreenBackgroundImage } from '../../components'
 
 import { signin } from '../../services/api'
 import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
