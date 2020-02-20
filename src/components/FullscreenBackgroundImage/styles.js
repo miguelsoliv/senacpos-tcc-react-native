@@ -1,4 +1,5 @@
 import { Dimensions } from 'react-native'
+import { Animated } from 'react-native'
 
 import backgroundImage from '../../assets/esmalte.png'
 
@@ -12,12 +13,11 @@ export const BackgroundImageContainer = styled.View`
   top: 0;
 `
 
-export const BackgroundImage = styled.Image.attrs({
+export const AnimatedBackgroundImage = styled(Animated.Image).attrs({
   source: backgroundImage
 })`
   flex: 1;
   aspect-ratio: 0.55;
   top: 3%;
   right: 45%;
-  opacity: 0.55;
 `

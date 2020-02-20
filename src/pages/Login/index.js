@@ -1,9 +1,6 @@
 import React, { useState, useRef } from 'react'
 import {
-  TouchableWithoutFeedback,
-  Keyboard,
-  Platform,
-  Alert
+  TouchableWithoutFeedback, Keyboard, Platform, Alert
 } from 'react-native'
 
 import { AnimatedLogo, FullscreenBackgroundImage } from '../../components'

@@ -37,20 +37,21 @@ export default function AnimatedLogo() {
   animatelogoImage = () => {
     Animated.timing(imageOpacity, {
       toValue: keyboardVisible ? 0 : 1,
-      duration: keyboardVisible ? 100 : 300,
+      duration: keyboardVisible ? 150 : 300,
       useNativeDriver: true
     }).start()
   }
 
   return (
-    <LogoImage onLoad={animatelogoImage}
+    <LogoImage
+      onLoadEnd={animatelogoImage}
       style={{
         opacity: imageOpacity,
         transform: [
           {
             scale: imageOpacity.interpolate({
               inputRange: [0, 1],
-              outputRange: [0.15, 0.7]
+              outputRange: [0.05, 0.7]
             })
           }
         ]

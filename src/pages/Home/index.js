@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Animated } from 'react-native'
 
 import {
-  FullscreenBackgroundImage, HeaderNavigation, ListItemHome
+  FullscreenBackgroundImage, ListItemHome
 } from '../../components'
+
+import { createStyledHeader } from '../../utils/createStyledHeader'
 
 import sampleAvatar from '../../assets/Ebichu.jpg'
 
@@ -68,17 +70,13 @@ export default function Home({ navigation, isFocused }) {
     <Container>
       <FullscreenBackgroundImage />
 
-      <HeaderNavigation
-        navigation={navigation}
-        headerTitle={'MENU PRINCIPAL'}
-      />
-
       <Content>
         <StyledFlatList
           data={manicures}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) =>
             <ListItemHome
+              navigation={navigation}
               item={item}
               translateX={
                 listAnimValue.interpolate({
@@ -93,3 +91,5 @@ export default function Home({ navigation, isFocused }) {
     </Container>
   )
 }
+
+createStyledHeader(Home, 'Menu principal')

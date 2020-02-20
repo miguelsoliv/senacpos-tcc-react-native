@@ -13,13 +13,16 @@
 To finalize installation of `react-native-gesture-handler` for Android:
 If you are using a native navigation library like `wix/react-native-navigation` you need to follow a different setup for your Android app to work properly. The reason is that both native navigation libraries and Gesture Handler library need to use their own special subclasses of ReactRootView.
 Instead of changing Java code you will need to wrap every screen component using `gestureHandlerRootHOC` on the JS side. This can be done for example at the stage when you register your screens.
-- [React Navigation Stack](https://github.com/react-navigation/stack): `npm i react-navigation-stack`
 - [React Navigation Drawer](https://github.com/react-navigation/drawer): `npm i react-navigation-drawer`
+- [React Navigation Stack](https://github.com/react-navigation/stack): `npm i react-navigation-stack`
+- [React Native Safe Area Context](https://github.com/th3rdwave/react-native-safe-area-context): `npm i react-native-safe-area-context`
+- [React Native MaskedView](https://github.com/react-native-community/react-native-masked-view): `npm i @react-native-community/masked-view`
 - [React Navigation Animated Switch](https://github.com/react-navigation/animated-switch): `npm i react-navigation-animated-switch`
 - [Styled Components](https://github.com/styled-components/styled-components): `npm i styled-components`
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons): `npm i react-native-vector-icons` -> `react-native link react-native-vector-icons`
 - [axios](https://github.com/axios/axios): `npm i axios`
 - [React Native Async Storage](https://github.com/react-native-community/async-storage): `npm i @react-native-community/async-storage`
+- [React Native DateTimePicker](https://github.com/react-native-community/react-native-datetimepicker): `npm i @react-native-community/datetimepicker`
 
 ## Troubleshooting
 

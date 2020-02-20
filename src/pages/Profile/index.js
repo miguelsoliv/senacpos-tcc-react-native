@@ -7,8 +7,10 @@ import storage from '../../services/storage'
 import { updateUser } from '../../services/api'
 import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
 
+import { createStyledHeader } from '../../utils/createStyledHeader'
+
 import {
-  FullscreenBackgroundImage, HeaderNavigation, EditableTextInput
+  FullscreenBackgroundImage, EditableTextInput
 } from '../../components'
 
 import {
@@ -90,12 +92,6 @@ export default function Profile({ navigation, isFocused }) {
     >
       <Container>
         <FullscreenBackgroundImage />
-
-        <HeaderNavigation
-          navigation={navigation}
-          headerTitle={'PERFIL'}
-        />
-
         {
           isLoading ? (
             <StyledIndicator />
@@ -142,3 +138,5 @@ export default function Profile({ navigation, isFocused }) {
     </TouchableWithoutFeedback>
   )
 }
+
+createStyledHeader(Profile, 'Perfil')

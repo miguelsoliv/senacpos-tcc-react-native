@@ -10,7 +10,7 @@ export default function SplashScreen({ navigation }) {
     checkToken()
   }, [])
 
-  async function checkToken() {
+  checkToken = async () => {
     const token = await storage.getToken()
 
     if (token) {

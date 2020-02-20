@@ -11,6 +11,5 @@ export const LogoImage = styled(Animated.Image).attrs({
 })`
   flex: 1;
   width: ${width + (width / 6)};
-  align-self: center;
   left: 7%;
 `

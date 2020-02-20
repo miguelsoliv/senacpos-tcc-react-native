@@ -3,13 +3,15 @@ import { Dimensions } from 'react-native'
 
 import { createAppContainer, withNavigationFocus } from 'react-navigation'
 import { createDrawerNavigator } from 'react-navigation-drawer'
+import { createStackNavigator } from 'react-navigation-stack'
 import createAnimatedSwitchNavigator from 'react-navigation-animated-switch'
 import { Transition } from 'react-native-reanimated'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import {
-  SplashScreen, Login, CreateAccount, ForgotPassword, Home, Profile
+  SplashScreen, Login, CreateAccount, ForgotPassword, Home, Profile,
+  ManicureDetails
 } from './pages'
 
 import SidebarHeader from './components/SidebarHeader'
@@ -22,15 +24,27 @@ const SignRoutes = createAnimatedSwitchNavigator({
   transitionViewStyle: { backgroundColor: 'rgb(248, 228, 239)' },
   transition: (
     <Transition.Together>
-      <Transition.Out type="fade" durationMs={350} interpolation="easeIn" />
-      <Transition.In type="fade" durationMs={500} />
+      <Transition.Out type="fade" durationMs={400} interpolation="easeIn" />
+      <Transition.In type="fade" durationMs={200} />
     </Transition.Together>
   )
 })
 
+const HomeDrawer = createStackNavigator({
+  Home: {
+    screen: withNavigationFocus(Home)
+  }
+})
+
+const ProfileDrawer = createStackNavigator({
+  Profile: {
+    screen: withNavigationFocus(Profile)
+  }
+})
+
 const DrawerNavigator = createDrawerNavigator({
   Home: {
-    screen: withNavigationFocus(Home),
+    screen: HomeDrawer,
     navigationOptions: {
       drawerLabel: 'Home',
       drawerIcon: ({ tintColor }) => (
@@ -39,7 +53,7 @@ const DrawerNavigator = createDrawerNavigator({
     }
   },
   Profile: {
-    screen: withNavigationFocus(Profile),
+    screen: ProfileDrawer,
     navigationOptions: {
       drawerLabel: 'Perfil',
       drawerIcon: ({ tintColor }) => (
@@ -62,16 +76,16 @@ const DrawerNavigator = createDrawerNavigator({
   }
 })
 
-const AppRoutes = createAnimatedSwitchNavigator({
-  DrawerNavigator,
-  //ManicureDetails
-}, {
-  transition: (
-    <Transition.Together>
-      <Transition.Out type="fade" durationMs={200} interpolation="easeIn" />
-      <Transition.In type="fade" durationMs={500} />
-    </Transition.Together>
-  )
+const AppRoutes = createStackNavigator({
+  DrawerNavigator: {
+    screen: DrawerNavigator,
+    navigationOptions: {
+      headerShown: false
+    }
+  },
+  ManicureDetails: {
+    screen: withNavigationFocus(ManicureDetails)
+  }
 })
 
 export default createAppContainer(createAnimatedSwitchNavigator({
@@ -79,7 +93,6 @@ export default createAppContainer(createAnimatedSwitchNavigator({
   SignRoutes,
   AppRoutes
 }, {
-  headerMode: 'none',
   transitionViewStyle: { backgroundColor: 'rgb(248, 228, 239)' },
   transition: (
     <Transition.Together>
