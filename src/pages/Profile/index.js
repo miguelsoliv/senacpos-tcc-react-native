@@ -9,9 +9,7 @@ import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
 
 import { createStyledHeader } from '../../utils/createStyledHeader'
 
-import {
-  FullscreenBackgroundImage, EditableTextInput
-} from '../../components'
+import { FullscreenBackgroundImage, EditableTextInput } from '../../components'
 
 import {
   Container, ScrollFormContainer, OkButton, OkButtonText, StyledIndicator,

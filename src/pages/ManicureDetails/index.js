@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Text, TouchableOpacity, View, Animated } from 'react-native'
-import DateTimePicker from '@react-native-community/datetimepicker'
+import { Alert } from 'react-native'
+import RNPickerSelect from 'react-native-picker-select'
+import moment from 'moment'
 
 import {
   FullscreenBackgroundImage, ManicureServiceView
@@ -9,16 +10,58 @@ import {
 import {
   createStyledHeaderWithBackButton
 } from '../../utils/createStyledHeader'
+import formatCurrency from '../../utils/formatCurrency'
 
-import { Container } from './styles'
+import CalendarModal from './CalendarModal'
+
+import {
+  Container, DateTimeContainer, DateTimeButton, ButtonText, PickerContainer,
+  BottomContainer, SelectedDateText, PricingContainer, TotalText, PriceText,
+  ScheduleButton
+} from './styles'
 
 export default function ManicureDetails({ navigation }) {
   const [manicureId, setManicureId] = useState('')
   const [total, setTotal] = useState(0)
+  const [calendarDate, setCalendarDate] = useState(
+    moment.utc().utcOffset("-03:00").format('YYYY-MM-DD')
+  )
+  const [hour, setHour] = useState(null)
+  const [calendarVisible, setCalendarVisible] = useState(false)
+
+  const manicureHours = [
+    { label: '16:00', value: '16:00' },
+    { label: '16:15', value: '16:15' },
+    { label: '16:30', value: '16:30' },
+    { label: '16:45', value: '16:45' },
+    { label: '17:00', value: '17:00' },
+    { label: '17:15', value: '17:15' },
+    { label: '17:30', value: '17:30' }
+  ]
 
   useEffect(() => {
     setManicureId(navigation.getParam('id'))
   }, [])
+
+  updateTotal = (price, sum = true) => {
+    sum ? setTotal(total + price) : setTotal(total - price)
+  }
+
+  handleSchedule = () => {
+    if (total == 0 || hour == null) return
+
+    Alert.alert(
+      'Confirmação',
+      `Deseja agendar seu atendimento para ${moment(calendarDate, 'YYYY-MM-DD').format('DD/MM')} às ${hour}?`,
+      [
+        { text: 'Não' },
+        {
+          text: 'Sim',
+          onPress: () => navigation.navigate('Home')
+        }
+      ]
+    )
+  }
 
   return (
     <Container>
@@ -27,110 +70,57 @@ export default function ManicureDetails({ navigation }) {
       <ManicureServiceView
         serviceText={'Mãos'}
         price={10}
+        toggle={updateTotal}
       />
 
       <ManicureServiceView
         serviceText={'Pés'}
         price={15}
+        toggle={updateTotal}
       />
 
-      <View style={{
-        alignItems: 'center',
-        marginTop: 6
-      }}>
-        <TouchableOpacity style={{
-          height: 42,
-          backgroundColor: 'rgb(150, 25, 130)',
-          width: '90%',
-          borderRadius: 6,
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 20
-        }}>
-          <Text style={{
-            color: '#eff0ed',
-            fontSize: 16,
-            fontWeight: 'bold',
-            letterSpacing: 2.5,
-          }}
-          >
-            Selecione a data do atendimento
-          </Text>
-        </TouchableOpacity>
+      <DateTimeContainer>
+        <DateTimeButton onPress={() => setCalendarVisible(true)}>
+          <ButtonText>Selecione a data do atendimento</ButtonText>
+        </DateTimeButton>
 
-        <TouchableOpacity style={{
-          height: 42,
-          backgroundColor: 'rgb(150, 25, 130)',
-          width: '90%',
-          borderRadius: 6,
-          justifyContent: 'center',
-          alignItems: 'center',
-          marginTop: 20
-        }}>
-          <Text style={{
-            color: '#eff0ed',
-            fontSize: 16,
-            fontWeight: 'bold',
-            letterSpacing: 2.5,
-          }}
-          >
-            Selecione a hora do atendimento
-          </Text>
-        </TouchableOpacity>
-      </View>
+        <SelectedDateText>
+          Data selecionada: {moment(calendarDate, 'YYYY-MM-DD').format('DD/MM')}
+        </SelectedDateText>
 
-      <View style={{
-        flex: 1,
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        marginBottom: 15
-      }}>
+        <CalendarModal
+          visibility={calendarVisible}
+          onClose={() => setCalendarVisible(false)}
+          onDaySelect={(date) => setCalendarDate(date.dateString)}
+        />
 
-        <View style={{
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}>
-          <View style={{ alignItems: 'center' }}>
-            <Text style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              letterSpacing: 2,
+        <PickerContainer>
+          <RNPickerSelect
+            placeholderTextColor={'white'}
+            placeholder={{
+              label: 'Selecione a hora do atendimento',
+              value: null,
+              color: 'gray'
             }}
-            >
-              Total:
-            </Text>
+            doneText={'Ok'}
+            onValueChange={(value) => setHour(value)}
+            items={manicureHours}
+          />
+        </PickerContainer>
+      </DateTimeContainer>
 
-            <Text style={{
-              fontSize: 16,
-              fontWeight: 'bold',
-              letterSpacing: 1.5,
-            }}
-            >
-              R$25,00
-            </Text>
-          </View>
+      <BottomContainer>
 
-          <TouchableOpacity style={{
-            height: 42,
-            backgroundColor: 'rgb(199, 29, 125)',
-            width: '70%',
-            borderRadius: 6,
-            justifyContent: 'center',
-            alignItems: 'center',
-            marginLeft: 10
-          }}>
-            <Text style={{
-              color: '#eff0ed',
-              fontSize: 16,
-              fontWeight: 'bold',
-              letterSpacing: 2.5,
-            }}
-            >
-              Agendar
-          </Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+        <PricingContainer>
+          <TotalText>Total:</TotalText>
+
+          <PriceText>{formatCurrency(total)}</PriceText>
+        </PricingContainer>
+
+        <ScheduleButton onPress={handleSchedule}>
+          <ButtonText>Agendar</ButtonText>
+        </ScheduleButton>
+      </BottomContainer>
     </Container>
   )
 }

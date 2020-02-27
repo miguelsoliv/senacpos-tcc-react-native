@@ -1,4 +1,4 @@
-export default function HandleAPIErrorMessage(originalMessage) {
+export default HandleAPIErrorMessage = (originalMessage) => {
   let message = 'Process error'
 
   switch (originalMessage) {
@@ -11,8 +11,8 @@ export default function HandleAPIErrorMessage(originalMessage) {
     case 'User authentication failed':
       message = 'Erro ao autenticar o usuário.'
       break
-    case 'Token expired, generate a new one':
-      message = 'Seu token expirou, solicite outro.'
+    case 'Reset password token expired, ask for a new one':
+      message = 'Seu token para realizar a troca de senha expirou, solicite outra senha.'
       break
     case 'Could not send forgot password email':
       message = 'Não foi possível enviar o e-mail de recuperação de senha, tente novamente mais tarde.'

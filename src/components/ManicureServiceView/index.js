@@ -1,14 +1,16 @@
 import React, { useState } from 'react'
 import { Animated } from 'react-native'
 
+import formatCurrency from '../../utils/formatCurrency'
+
 import {
   Container, ServiceText, ServicePrice, StyledButton, ButtonText, ButtonTextAlt
 } from './styles'
 
-export default function ManicureServiceView({ serviceText, price }) {
-  const [animateColor] = useState(new Animated.Value(0))
-  const [animateText] = useState(new Animated.Value(0))
-  const [animateHelper, setAnimateHelper] = useState(false)
+export default function ManicureServiceView({ serviceText, price, toggle }) {
+  const [animateColor] = useState(new Animated.Value(1))
+  const [animateText] = useState(new Animated.Value(1))
+  const [animateHelper, setAnimateHelper] = useState(true)
 
   const AnimatedContainer = Animated.createAnimatedComponent(Container)
   const AnimatedTouchableOpacity = Animated.createAnimatedComponent(StyledButton)
@@ -40,14 +42,12 @@ export default function ManicureServiceView({ serviceText, price }) {
       Animated.timing(animateColor, {
         duration: 400,
         toValue: !animateHelper ? 1 : 0
-      }).start(() => {
-        setAnimateHelper(!animateHelper)
-      }),
+      }).start(() => setAnimateHelper(!animateHelper)),
 
       Animated.timing(animateText, {
         duration: 200,
         toValue: !animateHelper ? 1 : 0
-      }).start()
+      }).start(() => toggle(price, animateHelper))
     )
   }
 
@@ -58,13 +58,9 @@ export default function ManicureServiceView({ serviceText, price }) {
         borderBottomColor: interpolatedViewBorder
       }}>
 
-      <ServiceText>
-        {serviceText}
-      </ServiceText>
+      <ServiceText>{serviceText}</ServiceText>
 
-      <ServicePrice>
-        R$ {price}
-      </ServicePrice>
+      <ServicePrice>{formatCurrency(price)}</ServicePrice>
 
       <AnimatedTouchableOpacity
         onPress={handleButtonPress}
@@ -74,8 +70,7 @@ export default function ManicureServiceView({ serviceText, price }) {
           ✔
         </AnimatedText>
 
-        <AnimatedTextAlt
-          style={{ opacity: interpolatedCrossText }}>
+        <AnimatedTextAlt style={{ opacity: interpolatedCrossText }}>
           ×
         </AnimatedTextAlt>
       </AnimatedTouchableOpacity>

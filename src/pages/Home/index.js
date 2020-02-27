@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Animated } from 'react-native'
 
-import {
-  FullscreenBackgroundImage, ListItemHome
-} from '../../components'
+import { FullscreenBackgroundImage, ListItemHome } from '../../components'
 
 import { createStyledHeader } from '../../utils/createStyledHeader'
 

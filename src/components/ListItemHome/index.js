@@ -1,13 +1,21 @@
 import React from 'react'
+
 import {
   AnimatedContainer, TouchableContainer, HeaderContainer, ManicureImage,
   InfoHeaderContainer, ManicureName, Description
 } from './styles'
 
-export default function ListItemHome({ item, translateX }) {
+export default function ListItemHome({ navigation, item, translateX }) {
+  handleListItemPress = () => {
+    navigation.navigate('ManicureDetails', {
+      id: item.id,
+      name: item.name
+    })
+  }
+
   return (
     <AnimatedContainer style={{ transform: [{ translateX }] }}>
-      <TouchableContainer onPress={() => console.log(`Name: ${item.name}`)}>
+      <TouchableContainer onPress={handleListItemPress}>
         <HeaderContainer>
           <ManicureImage source={item.photo} />
 

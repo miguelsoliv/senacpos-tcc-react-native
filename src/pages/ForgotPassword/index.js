@@ -36,7 +36,7 @@ export default function ForgotPassword({ navigation }) {
         'Cheque seu e-mail para instruções de recuperação de senha.',
         [
           {
-            text: 'OK',
+            text: 'Ok',
             onPress: () => navigation.navigate('Login')
           }
         ]

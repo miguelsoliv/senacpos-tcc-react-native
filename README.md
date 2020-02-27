@@ -22,7 +22,10 @@ Instead of changing Java code you will need to wrap every screen component using
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons): `npm i react-native-vector-icons` -> `react-native link react-native-vector-icons`
 - [axios](https://github.com/axios/axios): `npm i axios`
 - [React Native Async Storage](https://github.com/react-native-community/async-storage): `npm i @react-native-community/async-storage`
-- [React Native DateTimePicker](https://github.com/react-native-community/react-native-datetimepicker): `npm i @react-native-community/datetimepicker`
+- [React Native Calendars](https://github.com/wix/react-native-calendars): `npm i react-native-calendars`
+- [React Native Modal](https://github.com/react-native-community/react-native-modal): `npm i react-native-modal`
+- [Moment.js](https://github.com/moment/moment/): `npm i moment`
+- [React Native Picker Select](https://github.com/lawnstarter/react-native-picker-select): `npm i react-native-picker-select`
 
 ## Troubleshooting
 
