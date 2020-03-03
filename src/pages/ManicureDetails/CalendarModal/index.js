@@ -6,7 +6,9 @@ import moment from 'moment'
 
 import { Container, CloseButtonText } from './styles'
 
-export default function CalendarModal({ visibility, onClose, onDaySelect }) {
+export default function CalendarModal({
+  visibility, onClose, onDaySelect, disabledDays
+}) {
   LocaleConfig.locales['br'] = {
     monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
       'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
@@ -24,7 +26,6 @@ export default function CalendarModal({ visibility, onClose, onDaySelect }) {
   }
   const disabledDateOptions = { disabled: true, disableTouchEvent: true }
 
-  const disabledDays = ['Sunday', 'Monday', 'Saturday']
   const [disableArrowLeft, setDisableArrowLeft] = useState(true)
   const [disableArrowRight, setDisableArrowRight] = useState(false)
 
@@ -32,9 +33,7 @@ export default function CalendarModal({ visibility, onClose, onDaySelect }) {
   const maxDate = moment(minDate).add(3, 'M').endOf('month')
 
   const [currentDateMonth, setCurrentDateMonth] = useState(minDate)
-  const [lastSelectedDate, setLastSelectedDate] = useState(
-    minDate.format('YYYY-MM-DD')
-  )
+  const [lastSelectedDate, setLastSelectedDate] = useState(null)
 
   const [markedDates, setMarkedDates] = useState({
     ...getDaysInMonth(minDate.month(), minDate.year(), disabledDays),
@@ -50,8 +49,9 @@ export default function CalendarModal({ visibility, onClose, onDaySelect }) {
     while (pivot.isBefore(end)) {
       days.forEach((day) => {
         dates[pivot.day(day).format('YYYY-MM-DD')] = disabledDateOptions
-        pivot.add(1, 'days')
       })
+
+      pivot.add(days.length, 'days')
     }
 
     return dates

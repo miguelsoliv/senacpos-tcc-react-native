@@ -5,6 +5,10 @@ export const Container = styled.SafeAreaView`
   background-color: rgb(248, 228, 239);
 `
 
+export const ContentContainer = styled.View`
+  flex: 1;
+`
+
 export const DateTimeContainer = styled.View`
   flex: 1;
   align-items: center;
@@ -77,4 +81,11 @@ export const ScheduleButton = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
   margin-left: 10px;
+`
+
+export const StyledIndicator = styled.ActivityIndicator.attrs({
+  color: 'rgb(199, 29, 125)',
+  size: 'large'
+})`
+  flex: 1;
 `

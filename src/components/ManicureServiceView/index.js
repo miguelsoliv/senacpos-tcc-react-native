@@ -8,8 +8,8 @@ import {
 } from './styles'
 
 export default function ManicureServiceView({ serviceText, price, toggle }) {
-  const [animateColor] = useState(new Animated.Value(1))
-  const [animateText] = useState(new Animated.Value(1))
+  const [animateColor] = useState(new Animated.Value(0))
+  const [animateText] = useState(new Animated.Value(0))
   const [animateHelper, setAnimateHelper] = useState(true)
 
   const AnimatedContainer = Animated.createAnimatedComponent(Container)
@@ -19,7 +19,7 @@ export default function ManicureServiceView({ serviceText, price, toggle }) {
 
   const interpolatedViewBorder = animateColor.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#2e7d3299', '#b71c1c99']
+    outputRange: ['#b71c1c99', '#2e7d3299']
   })
 
   const interpolatedButtonColor = animateColor.interpolate({
@@ -41,13 +41,13 @@ export default function ManicureServiceView({ serviceText, price, toggle }) {
     Animated.parallel(
       Animated.timing(animateColor, {
         duration: 400,
-        toValue: !animateHelper ? 1 : 0
+        toValue: animateHelper ? 1 : 0
       }).start(() => setAnimateHelper(!animateHelper)),
 
       Animated.timing(animateText, {
         duration: 200,
-        toValue: !animateHelper ? 1 : 0
-      }).start(() => toggle(price, animateHelper))
+        toValue: animateHelper ? 1 : 0
+      }).start(() => toggle(serviceText, price, animateHelper))
     )
   }
 

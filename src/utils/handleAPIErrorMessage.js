@@ -22,9 +22,15 @@ export default HandleAPIErrorMessage = (originalMessage) => {
       break
     case 'User already exists':
       message = 'Já existe um usuário cadastrado com este endereço de e-mail.'
-      break;
+      break
     case 'User registration failed':
       message = 'Erro ao cadastrar usuário.'
+      break
+    case 'Hour already taken':
+      message = 'Alguém foi mais rápido e fez um agendamento para essa hora. Tente outro horário!'
+      break
+    case 'Schedule registration failed':
+      message = 'Erro ao realizar o agendamento.'
       break
   }
 

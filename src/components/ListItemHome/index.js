@@ -8,8 +8,12 @@ import {
 export default function ListItemHome({ navigation, item, translateX }) {
   handleListItemPress = () => {
     navigation.navigate('ManicureDetails', {
-      id: item.id,
-      name: item.name
+      _id: item._id,
+      name: item.name,
+      scheduleDays: item.schedule.days,
+      scheduleHours: item.schedule.hours,
+      servicesNames: item.services.names,
+      servicesPrices: item.services.prices
     })
   }
 
@@ -17,11 +21,11 @@ export default function ListItemHome({ navigation, item, translateX }) {
     <AnimatedContainer style={{ transform: [{ translateX }] }}>
       <TouchableContainer onPress={handleListItemPress}>
         <HeaderContainer>
-          <ManicureImage source={item.photo} />
+          <ManicureImage source={{ uri: item.photo_url }} />
 
           <InfoHeaderContainer>
             <ManicureName>{item.name}</ManicureName>
-            <Description>{item.description}</Description>
+            <Description>{item.schedule.days}</Description>
           </InfoHeaderContainer>
 
         </HeaderContainer>

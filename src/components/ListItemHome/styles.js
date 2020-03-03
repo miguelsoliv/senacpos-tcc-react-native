@@ -3,7 +3,7 @@ import { Animated } from 'react-native'
 import styled from 'styled-components'
 
 export const AnimatedContainer = styled(Animated.View)`
-  margin: 0 4px 5px 4px;
+  margin: 0 5px 5px 3px;
   border-radius: 6px;
   border-width: 1.5px;
 `
