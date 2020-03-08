@@ -14,8 +14,10 @@ export default function SidebarHeader(props) {
   const [username, setUsername] = useState('')
 
   useEffect(() => {
-    getUsername()
-  }, [])
+    if (!props.navigation.state.isDrawerOpen) {
+      getUsername()
+    }
+  }, [props])
 
   async function getUsername() {
     const { name } = JSON.parse(await storage.getUser())

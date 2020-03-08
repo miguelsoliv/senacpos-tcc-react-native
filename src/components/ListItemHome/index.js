@@ -1,13 +1,13 @@
 import React from 'react'
 
 import {
-  AnimatedContainer, TouchableContainer, HeaderContainer, ManicureImage,
-  InfoHeaderContainer, ManicureName, Description
+  AnimatedContainer, TouchableContainer, HeaderContainer, ProfessionalImage,
+  InfoHeaderContainer, ProfessionalName, Description
 } from './styles'
 
 export default function ListItemHome({ navigation, item, translateX }) {
   handleListItemPress = () => {
-    navigation.navigate('ManicureDetails', {
+    navigation.navigate('ProfessionalDetails', {
       _id: item._id,
       name: item.name,
       scheduleDays: item.schedule.days,
@@ -21,10 +21,10 @@ export default function ListItemHome({ navigation, item, translateX }) {
     <AnimatedContainer style={{ transform: [{ translateX }] }}>
       <TouchableContainer onPress={handleListItemPress}>
         <HeaderContainer>
-          <ManicureImage source={{ uri: item.photo_url }} />
+          <ProfessionalImage source={{ uri: item.photo_url }} />
 
           <InfoHeaderContainer>
-            <ManicureName>{item.name}</ManicureName>
+            <ProfessionalName>{item.name}</ProfessionalName>
             <Description>{item.schedule.days}</Description>
           </InfoHeaderContainer>
 

@@ -19,7 +19,7 @@ export const HeaderContainer = styled.View`
   align-items: center;
 `
 
-export const ManicureImage = styled.Image`
+export const ProfessionalImage = styled.Image`
   width: 65px;
   height: 65px;
   border-radius: 6px;
@@ -33,7 +33,7 @@ export const InfoHeaderContainer = styled.View`
   margin-left: 10px;
 `
 
-export const ManicureName = styled.Text`
+export const ProfessionalName = styled.Text`
   color: #333;
   font-size: 16px;
   font-weight: bold;

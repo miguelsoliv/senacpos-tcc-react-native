@@ -3,13 +3,13 @@ import {
   TouchableWithoutFeedback, Keyboard, Platform, Alert
 } from 'react-native'
 
-import storage from '../../services/storage'
-import { updateUser } from '../../services/api'
-import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
+import storage from '../../../services/storage'
+import { updateClient } from '../../../services/api'
+import HandleAPIErrorMessage from '../../../utils/handleAPIErrorMessage'
 
-import { createStyledHeader } from '../../utils/createStyledHeader'
+import { createStyledHeader } from '../../../utils/createStyledHeader'
 
-import { FullscreenBackgroundImage, EditableTextInput } from '../../components'
+import { FullscreenBackgroundImage, EditableTextInput } from '../../../components'
 
 import {
   Container, ScrollFormContainer, OkButton, OkButtonText, StyledIndicator,
@@ -18,11 +18,13 @@ import {
 
 export default function Profile({ navigation, isFocused }) {
   const [isLoading, setIsLoading] = useState(true)
-  const [id, setId] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confPassword, setConfPassword] = useState('')
+  const [userId, setUserId] = useState('')
+  const [username, setUsername] = useState('')
+  const [originalUsername, setOriginalUsername] = useState('')
+  const [userEmail, setUserEmail] = useState('')
+  const [originalEmail, setOriginalEmail] = useState('')
+  const [userPassword, setUserPassword] = useState('')
+  const [confUserPassword, setConfUserPassword] = useState('')
 
   useEffect(() => {
     if (isFocused) loadUserData()
@@ -32,29 +34,40 @@ export default function Profile({ navigation, isFocused }) {
   async function loadUserData() {
     const { _id, name, email } = JSON.parse(await storage.getUser())
 
-    setId(_id)
-    setName(name)
-    setEmail(email)
-    setPassword('')
-    setConfPassword('')
+    setUserId(_id)
+    setUsername(name)
+    setUserEmail(email)
+    setUserPassword('')
+    setConfUserPassword('')
+
+    setOriginalUsername(name)
+    setOriginalEmail(email)
 
     setIsLoading(false)
   }
 
   async function handleUserDataChange() {
-    if (!name || !email) return
+    if (!username || !userEmail) return
 
-    if (password != confPassword) {
+    if (userPassword != confUserPassword) {
       Alert.alert('Ops...', 'Confirme corretamente sua senha.')
       return
     }
+
+    const updatedData = {}
+
+    if (username != originalUsername) updatedData.name = username
+    if (userEmail != originalEmail) updatedData.email = userEmail
+    if (userPassword) updatedData.password = userPassword
+
+    if (Object.keys(updatedData).length == 0) return
 
     setIsLoading(true)
 
     const token = await storage.getToken()
 
     try {
-      const response = await updateUser(id, name, email, password, token)
+      const response = await updateClient(userId, updatedData, token)
 
       if (response.data.message) {
         Alert.alert('Ops...', HandleAPIErrorMessage(response.data.message))
@@ -62,9 +75,9 @@ export default function Profile({ navigation, isFocused }) {
       }
 
       storage.setUser({
-        _id: id,
-        name,
-        email
+        _id: userId,
+        name: username,
+        email: userEmail
       })
 
       Alert.alert('Sucesso!',
@@ -97,30 +110,30 @@ export default function Profile({ navigation, isFocused }) {
               <ScrollFormContainer>
                 <EditableTextInput
                   headerTitle={'Seu nome:'}
-                  onChangeText={text => setName(text)}
-                  value={name}
+                  onChangeText={text => setUsername(text)}
+                  value={username}
                 />
 
                 <EditableTextInput
                   headerTitle={'Seu email:'}
-                  onChangeText={text => setEmail(text)}
-                  value={email}
+                  onChangeText={text => setUserEmail(text)}
+                  value={userEmail}
                   keyboardType='email-address'
                 />
 
                 <PasswordsContainer>
                   <EditableTextInput
                     headerTitle={'Sua nova senha:'}
-                    onChangeText={text => setPassword(text)}
-                    value={password}
+                    onChangeText={text => setUserPassword(text)}
+                    value={userPassword}
                     fill
                     secureTextEntry
                   />
 
                   <EditableTextInput
                     headerTitle={'Confirme sua senha:'}
-                    onChangeText={text => setConfPassword(text)}
-                    value={confPassword}
+                    onChangeText={text => setConfUserPassword(text)}
+                    value={confUserPassword}
                     fill
                     secureTextEntry
                   />

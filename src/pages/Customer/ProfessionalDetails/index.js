@@ -4,18 +4,18 @@ import RNPickerSelect from 'react-native-picker-select'
 import moment from 'moment'
 
 import {
-  FullscreenBackgroundImage, ManicureServiceView
-} from '../../components'
+  FullscreenBackgroundImage, ProfessionalServiceView
+} from '../../../components'
 
-import { addScheduledHour, listManicureSchedule } from '../../services/api'
-import storage from '../../services/storage'
+import { addScheduledHour, listProfessionalSchedule } from '../../../services/api'
+import storage from '../../../services/storage'
 
 import {
   createStyledHeaderWithBackButton
-} from '../../utils/createStyledHeader'
-import formatCurrency from '../../utils/formatCurrency'
-import { changeDayNames, getDisabledDays } from '../../utils/handleDaysArray'
-import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
+} from '../../../utils/createStyledHeader'
+import formatCurrency from '../../../utils/formatCurrency'
+import { changeDayNames, getDisabledDays } from '../../../utils/handleDaysArray'
+import HandleAPIErrorMessage from '../../../utils/handleAPIErrorMessage'
 
 import CalendarModal from './CalendarModal'
 
@@ -25,7 +25,7 @@ import {
   TotalText, PriceText, ScheduleButton, StyledIndicator
 } from './styles'
 
-export default function ManicureDetails({ navigation }) {
+export default function ProfessionalDetails({ navigation }) {
   const [isLoading, setIsLoading] = useState(true)
   const [total, setTotal] = useState(0)
   const [description, setDescription] = useState({})
@@ -46,8 +46,8 @@ export default function ManicureDetails({ navigation }) {
   const [alreadyScheduledDates] = useState([])
   const [alreadyScheduledHours] = useState([])
 
-  getManicureSchedule = async () => {
-    const response = await listManicureSchedule(
+  getProfessionalSchedule = async () => {
+    const response = await listProfessionalSchedule(
       navigation.getParam('_id'), await storage.getToken()
     )
 
@@ -66,7 +66,7 @@ export default function ManicureDetails({ navigation }) {
   }
 
   useEffect(() => {
-    getManicureSchedule()
+    getProfessionalSchedule()
   }, [])
 
   updateTotal = (serviceText, price, sum = true) => {
@@ -190,7 +190,7 @@ export default function ManicureDetails({ navigation }) {
       <ContentContainer style={{ display: isLoading ? 'none' : null }}>
         {
           servicesPrices[0] > 0 &&
-          <ManicureServiceView
+          <ProfessionalServiceView
             serviceText={servicesNames[0]}
             price={servicesPrices[0]}
             toggle={updateTotal}
@@ -199,7 +199,7 @@ export default function ManicureDetails({ navigation }) {
 
         {
           servicesPrices[1] > 0 &&
-          <ManicureServiceView
+          <ProfessionalServiceView
             serviceText={servicesNames[1]}
             price={servicesPrices[1]}
             toggle={updateTotal}
@@ -259,4 +259,4 @@ export default function ManicureDetails({ navigation }) {
   )
 }
 
-createStyledHeaderWithBackButton(ManicureDetails)
+createStyledHeaderWithBackButton(ProfessionalDetails)

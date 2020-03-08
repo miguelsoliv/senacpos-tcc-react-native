@@ -7,7 +7,9 @@ import {
   Container, ServiceText, ServicePrice, StyledButton, ButtonText, ButtonTextAlt
 } from './styles'
 
-export default function ManicureServiceView({ serviceText, price, toggle }) {
+export default function ProfessionalServiceView({
+  serviceText, price, toggle
+}) {
   const [animateColor] = useState(new Animated.Value(0))
   const [animateText] = useState(new Animated.Value(0))
   const [animateHelper, setAnimateHelper] = useState(true)

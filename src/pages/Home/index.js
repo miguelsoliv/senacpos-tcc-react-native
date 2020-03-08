@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Animated, FlatList } from 'react-native'
+import { Animated } from 'react-native'
 
 import { FullscreenBackgroundImage, ListItemHome } from '../../components'
 
-import { listManicures } from '../../services/api'
+import storage from '../../services/storage'
+import { listProfessionals } from '../../services/api'
 
 import { createStyledHeader } from '../../utils/createStyledHeader'
 
@@ -14,10 +15,12 @@ export default function Home({ navigation, isFocused }) {
   const [isLoading, setIsLoading] = useState(true)
   const [foundError, setFoundError] = useState(false)
   const [listAnimValue] = useState(new Animated.Value(0))
-  const [manicures, setManicures] = useState([])
+  const [professionals, setProfessionals] = useState([])
 
-  getManicuresList = async () => {
-    const response = await listManicures()
+  getProfessionalsList = async () => {
+    const { _id } = JSON.parse(await storage.getUser())
+
+    const response = await listProfessionals(_id, await storage.getToken())
 
     setIsLoading(false)
 
@@ -26,11 +29,11 @@ export default function Home({ navigation, isFocused }) {
       return
     }
 
-    setManicures(response.data)
+    setProfessionals(response.data)
   }
 
   useEffect(() => {
-    getManicuresList()
+    getProfessionalsList()
   }, [])
 
   useEffect(() => {
@@ -51,7 +54,7 @@ export default function Home({ navigation, isFocused }) {
             <StyledIndicator />
           ) : (
               <StyledFlatList
-                data={manicures}
+                data={professionals}
                 keyExtractor={item => String(item._id)}
                 renderItem={({ item }) =>
                   <ListItemHome

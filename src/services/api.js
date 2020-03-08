@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const api = axios.create({
-  //baseURL: 'https://senacpos-tcc.herokuapp.com/'
-  baseURL: 'http://10.0.2.2:3333'
+  baseURL: 'https://senacpos-tcc.herokuapp.com/'
+  //baseURL: 'http://10.0.2.2:3333'
 })
 
 export function validateToken(token) {
@@ -21,23 +21,27 @@ export function forgotPassword(email) {
   return api.post('/forgot-password', { email })
 }
 
-export function updateUser(id, name, email, password, token) {
-  return api.put(`/users/${id}`, { name, email, password }, {
+export function updateCustomer(id, updatedData, token) {
+  return api.put(`/customers/${id}`, updatedData, {
     headers: {
       authorization: `Bearer ${token}`
     }
   })
 }
 
-export function listManicures() {
-  return api.get('/manicures')
+export function listProfessionals(id, token) {
+  return api.get(`/professionals/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
 }
 
 export function addScheduledHour(
-  id_manicure, id_user, marked_date, total, description, token
+  id_professional, id_user, marked_date, total, description, token
 ) {
   return api.post('/schedule', {
-    id_manicure, id_user, marked_date, total, description
+    id_professional, id_user, marked_date, total, description
   }, {
     headers: {
       authorization: `Bearer ${token}`
@@ -45,8 +49,8 @@ export function addScheduledHour(
   })
 }
 
-export function listManicureSchedule(id_manicure, token) {
-  return api.get(`/schedule/${id_manicure}`, {
+export function listProfessionalSchedule(id, token) {
+  return api.get(`/schedule/${id}`, {
     headers: {
       authorization: `Bearer ${token}`
     }

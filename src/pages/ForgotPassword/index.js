@@ -6,6 +6,7 @@ import {
 import { AnimatedLogo, FullscreenBackgroundImage } from '../../components'
 
 import { forgotPassword } from '../../services/api'
+import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
 
 import {
   ContainerSafeArea, ContainerAvoidView, FormContainer, InputTitle,
