@@ -5,17 +5,17 @@ import moment from 'moment'
 
 import {
   FullscreenBackgroundImage, ProfessionalServiceView
-} from '../../../components'
+} from '../../components'
 
-import { addScheduledHour, listProfessionalSchedule } from '../../../services/api'
-import storage from '../../../services/storage'
+import { addScheduledHour, listProfessionalSchedule } from '../../services/api'
+import storage from '../../services/storage'
 
 import {
   createStyledHeaderWithBackButton
-} from '../../../utils/createStyledHeader'
-import formatCurrency from '../../../utils/formatCurrency'
-import { changeDayNames, getDisabledDays } from '../../../utils/handleDaysArray'
-import HandleAPIErrorMessage from '../../../utils/handleAPIErrorMessage'
+} from '../../utils/createStyledHeader'
+import formatCurrency from '../../utils/formatCurrency'
+import { changeDayNames, getDisabledDays } from '../../utils/handleDaysArray'
+import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
 
 import CalendarModal from './CalendarModal'
 
@@ -189,21 +189,17 @@ export default function ProfessionalDetails({ navigation }) {
 
       <ContentContainer style={{ display: isLoading ? 'none' : null }}>
         {
-          servicesPrices[0] > 0 &&
-          <ProfessionalServiceView
-            serviceText={servicesNames[0]}
-            price={servicesPrices[0]}
-            toggle={updateTotal}
-          />
-        }
-
-        {
-          servicesPrices[1] > 0 &&
-          <ProfessionalServiceView
-            serviceText={servicesNames[1]}
-            price={servicesPrices[1]}
-            toggle={updateTotal}
-          />
+          servicesNames.map((service, index) => {
+            return (
+              servicesPrices[index] > 0 &&
+              <ProfessionalServiceView
+                key={index}
+                serviceText={service}
+                price={servicesPrices[index]}
+                toggle={updateTotal}
+              />
+            )
+          })
         }
 
         <DateTimeContainer>

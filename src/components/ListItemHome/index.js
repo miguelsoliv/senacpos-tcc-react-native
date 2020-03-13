@@ -1,4 +1,5 @@
 import React from 'react'
+import { Buffer } from 'buffer'
 
 import {
   AnimatedContainer, TouchableContainer, HeaderContainer, ProfessionalImage,
@@ -21,7 +22,11 @@ export default function ListItemHome({ navigation, item, translateX }) {
     <AnimatedContainer style={{ transform: [{ translateX }] }}>
       <TouchableContainer onPress={handleListItemPress}>
         <HeaderContainer>
-          <ProfessionalImage source={{ uri: item.photo_url }} />
+          <ProfessionalImage
+            source={{
+              uri: `data:image/jpeg;base64,${new Buffer(item.photo_url)
+                .toString('base64')}`
+            }} />
 
           <InfoHeaderContainer>
             <ProfessionalName>{item.name}</ProfessionalName>

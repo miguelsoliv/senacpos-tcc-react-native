@@ -41,6 +41,6 @@ export const ButtonText = styled.Text`
 export const ButtonTextAlt = styled.Text`
   font-size: 22px;
   position: absolute;
-  bottom: 3%;
+  bottom: 1.5%;
   color: rgb(248, 228, 239);
 `

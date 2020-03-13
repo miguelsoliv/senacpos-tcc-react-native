@@ -5,7 +5,7 @@ import {
 
 import { AnimatedLogo, FullscreenBackgroundImage } from '../../components'
 
-import { createAccount } from '../../services/api'
+import { createCustomerAccount, createProfessionalAccount } from '../../services/api'
 import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
 import storage from '../../services/storage'
 
@@ -32,7 +32,8 @@ export default function CreateAccount({ navigation }) {
 
     setIsLoading(true)
 
-    const response = await createAccount(name.trim(), email.trim(), password)
+    const response =
+      await createCustomerAccount(name.trim(), email.trim(), password)
 
     setIsLoading(false)
 

@@ -13,8 +13,16 @@ export function signin(email, password) {
   return api.post('/authenticate', { email, password })
 }
 
-export function createAccount(name, email, password) {
+export function createCustomerAccount(name, email, password) {
   return api.post('/users', { name, email, password })
+}
+
+export function createProfessionalAccount(
+  name, email, password, photo_url, services, schedule
+) {
+  return api.post('/professionals', {
+    name, email, password, photo_url, services, schedule
+  })
 }
 
 export function forgotPassword(email) {
@@ -23,6 +31,14 @@ export function forgotPassword(email) {
 
 export function updateCustomer(id, updatedData, token) {
   return api.put(`/customers/${id}`, updatedData, {
+    headers: {
+      authorization: `Bearer ${token}`
+    }
+  })
+}
+
+export function updateProfessional(id, updatedData, token) {
+  return api.put(`/professional/${id}`, updatedData, {
     headers: {
       authorization: `Bearer ${token}`
     }

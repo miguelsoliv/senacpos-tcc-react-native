@@ -22,7 +22,7 @@ export const OkButton = styled.TouchableOpacity`
   border-radius: 6;
   justify-content: center;
   align-items: center;
-  margin-top: 14px;
+  margin: 14px 0 10px 0;
 `
 
 export const OkButtonText = styled.Text`

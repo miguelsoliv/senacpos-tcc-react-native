@@ -10,8 +10,8 @@ import { Transition } from 'react-native-reanimated'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import {
-  SplashScreen, Login, CreateAccount, ForgotPassword, Home, CustomerProfile,
-  ProfessionalsProfile, ProfessionalDetails
+  SplashScreen, Login, CreateAccount, ForgotPassword, Home, UserProfile,
+  ProfessionalDetails
 } from './pages'
 
 import SidebarHeader from './components/SidebarHeader'
@@ -36,9 +36,9 @@ const HomeDrawer = createStackNavigator({
   }
 })
 
-const CustomerProfileDrawer = createStackNavigator({
-  CustomerProfile: {
-    screen: withNavigationFocus(CustomerProfile)
+const UserProfileDrawer = createStackNavigator({
+  UserProfile: {
+    screen: withNavigationFocus(UserProfile)
   }
 })
 
@@ -52,8 +52,8 @@ const DrawerNavigator = createDrawerNavigator({
       )
     }
   },
-  Profile: {
-    screen: CustomerProfileDrawer,
+  UserProfile: {
+    screen: UserProfileDrawer,
     navigationOptions: {
       drawerLabel: 'Perfil',
       drawerIcon: ({ tintColor }) => (

@@ -6,3 +6,4 @@ export {
 export { default as ListItemHome } from './ListItemHome'
 export { default as SidebarHeader } from './SidebarHeader'
 export { default as ProfessionalServiceView } from './ProfessionalServiceView'
+export { default as ScheduleTable } from './ScheduleTable'
