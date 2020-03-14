@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react'
 import {
   TouchableWithoutFeedback, Keyboard, Platform, Alert
 } from 'react-native'
+import { Buffer } from 'buffer'
 
 import { AnimatedLogo, FullscreenBackgroundImage } from '../../components'
 
@@ -38,6 +39,13 @@ export default function Login({ navigation }) {
       Alert.alert('Ops...', HandleAPIErrorMessage(response.data.message))
       return
     }
+
+    if (response.data.user.photo_url) {
+      response.data.user.photo_url =
+        Buffer.from(response.data.user.photo_url, 'base64')
+    }
+
+    console.log(response.data.user.photo_url)
 
     storage.setToken(response.data.token)
     storage.setUser(response.data.user)

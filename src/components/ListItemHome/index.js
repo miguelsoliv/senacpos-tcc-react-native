@@ -30,7 +30,7 @@ export default function ListItemHome({ navigation, item, translateX }) {
 
           <InfoHeaderContainer>
             <ProfessionalName>{item.name}</ProfessionalName>
-            <Description>{item.schedule.days}</Description>
+            <Description></Description>
           </InfoHeaderContainer>
 
         </HeaderContainer>

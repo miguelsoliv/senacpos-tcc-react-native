@@ -11,7 +11,7 @@ export default function RemovableHourIntervalItem({
     <TouchableInterval onPress={() => onItemRemoved(item)}>
       <IntervalContainer
         style={{
-          borderTopWidth: index % 2 != 0 ? 1.5 : 0,
+          borderTopWidth: index % 2 == 0 ? 1.5 : 0,
           borderBottomWidth: addBottomBorder && 1.5
         }}>
         <IntervalText>{item}</IntervalText>

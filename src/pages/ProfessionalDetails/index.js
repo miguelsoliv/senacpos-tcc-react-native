@@ -28,10 +28,13 @@ import {
 export default function ProfessionalDetails({ navigation }) {
   const [isLoading, setIsLoading] = useState(true)
   const [total, setTotal] = useState(0)
-  const [description, setDescription] = useState({})
   const [calendarDate, setCalendarDate] = useState(null)
   const [hour, setHour] = useState(null)
   const [calendarVisible, setCalendarVisible] = useState(false)
+  const [description, setDescription] = useState({
+    names: navigation.getParam('servicesNames'),
+    prices: navigation.getParam('servicesNames').map(() => { return 0 })
+  })
 
   const servicesNames = navigation.getParam('servicesNames')
   const servicesPrices = navigation.getParam('servicesPrices')
@@ -40,7 +43,10 @@ export default function ProfessionalDetails({ navigation }) {
   const [pickerHourItems, setPickerHourItems] = useState([])
   const scheduleHours = navigation.getParam('scheduleHours')
     .map((hoursArray) => {
-      return hoursArray.map((hour) => ({ label: hour, value: hour }))
+      return hoursArray.map((hour) => ({
+        label: hour,
+        value: hour
+      }))
     })
 
   const [alreadyScheduledDates] = useState([])
@@ -71,6 +77,10 @@ export default function ProfessionalDetails({ navigation }) {
 
   updateTotal = (serviceText, price, sum = true) => {
     sum ? setTotal(total + price) : setTotal(total - price)
+
+    console.log(index)
+
+    description.prices[index] = 1
 
     sum ? setDescription({
       ...description,
@@ -196,7 +206,7 @@ export default function ProfessionalDetails({ navigation }) {
                 key={index}
                 serviceText={service}
                 price={servicesPrices[index]}
-                toggle={updateTotal}
+                toggle={(index) => updateTotal(index)}
               />
             )
           })
@@ -214,12 +224,12 @@ export default function ProfessionalDetails({ navigation }) {
             }
           </SelectedDateText>
 
-          <CalendarModal
+          {/*<CalendarModal
             visibility={calendarVisible}
             onClose={() => setCalendarVisible(false)}
             onDaySelect={handleDayChange}
             disabledDays={disabledDays}
-          />
+          />*/}
 
           {
             calendarDate &&

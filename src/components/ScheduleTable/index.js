@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import WeekdayHoursModal from './WeekdayHoursModal'
 
@@ -11,7 +11,7 @@ import {
 export default function ScheduleTable() {
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedDay, setSelectedDay] = useState('Domingo')
-  const [minHourToDelete, setMinHourToDelete] = useState('0')
+  const [minHourToDelete, setMinHourToDelete] = useState('21')
   const [maxHourToDelete, setMaxHourToDelete] = useState('0')
 
   const [weekdaysObject, setWeekdaysObject] = useState({
@@ -19,6 +19,27 @@ export default function ScheduleTable() {
     'Quarta': [], 'Quinta': [], 'Sexta': [],
     'Sábado': []
   })
+
+  useEffect(() => {
+    weekdaysObject[selectedDay].forEach((interval) => {
+      const partsInterval = interval.split('-')
+
+      if (Number(minHourToDelete) > Number(partsInterval[0].substring(0, 2))) {
+        setMinHourToDelete(partsInterval[0].substring(0, 2))
+      }
+
+      if (Number(maxHourToDelete) < Number(partsInterval[1].substring(0, 2))) {
+        setMaxHourToDelete(partsInterval[1].substring(0, 2))
+      }
+    })
+
+    console.log('LENGTH: ' + weekdaysObject[selectedDay].length)
+
+    if (weekdaysObject[selectedDay].length == 0) {
+      setMinHourToDelete('21')
+      setMaxHourToDelete('0')
+    }
+  }, [weekdaysObject])
 
   handleHoursIntervalPress = (weekday) => {
     setModalVisible(true)
@@ -29,10 +50,6 @@ export default function ScheduleTable() {
     let updatedObject = { ...weekdaysObject }
     updatedObject[selectedDay] = [...newArray]
 
-    const partsInterval = newArray[newArray.length - 1].split('-')
-
-    setMinHourToDelete(partsInterval[0].substring(0, 2))
-    setMaxHourToDelete(partsInterval[1].substring(0, 2))
     setWeekdaysObject(updatedObject)
   }
 

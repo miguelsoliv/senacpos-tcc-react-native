@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://senacpos-tcc.herokuapp.com/'
-  //baseURL: 'http://10.0.2.2:3333'
+  //baseURL: 'https://senacpos-tcc.herokuapp.com/'
+  baseURL: 'http://10.0.2.2:3333'
 })
 
 export function validateToken(token) {
@@ -20,7 +20,7 @@ export function createCustomerAccount(name, email, password) {
 export function createProfessionalAccount(
   name, email, password, photo_url, services, schedule
 ) {
-  return api.post('/professionals', {
+  return api.post('/users', {
     name, email, password, photo_url, services, schedule
   })
 }
@@ -38,7 +38,7 @@ export function updateCustomer(id, updatedData, token) {
 }
 
 export function updateProfessional(id, updatedData, token) {
-  return api.put(`/professional/${id}`, updatedData, {
+  return api.put(`/professionals/${id}`, updatedData, {
     headers: {
       authorization: `Bearer ${token}`
     }

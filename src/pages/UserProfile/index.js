@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {
-  TouchableWithoutFeedback, Keyboard, Platform, Alert,
+  TouchableWithoutFeedback, Keyboard, Platform, Alert
 } from 'react-native'
 import { Buffer } from 'buffer'
 
@@ -11,11 +11,9 @@ import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
 import { createStyledHeader } from '../../utils/createStyledHeader'
 
 import {
-  FullscreenBackgroundImage, EditableTextInput, ScheduleTable,
-  ProfessionalServiceView
+  FullscreenBackgroundImage, EditableTextInput, ProfileImage, ScheduleTable,
+  EditableProfessionalService
 } from '../../components'
-
-import ProfileImage from '../../components/ProfileImage'
 
 import {
   Container, ScrollFormContainer, OkButton, OkButtonText, StyledIndicator,
@@ -56,20 +54,12 @@ export default function UserProfile({ navigation, isFocused }) {
     originalValues.email = email
 
     if (services) {
-      setPhotoUrl(new Buffer(photo_url).toString('base64'))
+      setPhotoUrl(Buffer.from(photo_url).toString('base64'))
       setUserServices(services)
       setScheduleDays(schedule.days)
       setScheduleHours(schedule.hours)
 
-      originalValues.photo_url = new Buffer(photo_url).toString('base64')
-      originalValues.services = {
-        names: services.names,
-        prices: services.prices
-      }
-      originalValues.schedule = {
-        days: schedule.days,
-        hours: schedule.hours
-      }
+      originalValues.photo_url = Buffer.from(photo_url).toString('base64')
     }
 
     setIsLoading(false)
@@ -89,20 +79,17 @@ export default function UserProfile({ navigation, isFocused }) {
     if (userEmail != originalValues.email) updatedData.email = userEmail
     if (userPassword) updatedData.password = userPassword
 
-    if (photoUrl != originalValues.photo_url) updatedData.photo_url = photoUrl
-
-    if (userServices.prices != originalValues.services.prices) {
-      updatedData.services = { prices: userServices.prices }
-    }
-
-    if (scheduleDays != originalValues.schedule.days) {
-      updatedData.schedule = { days: servicesDays }
-    }
-    if (scheduleHours != originalValues.schedule.hours) {
-      updatedData.schedule = { hours: servicesHours }
+    if (photoUrl != originalValues.photo_url) {
+      updatedData.photo_url = Buffer.from(photoUrl).toString('base64')
     }
 
     if (Object.keys(updatedData).length == 0) return
+
+    updatedData.services = userServices
+    // updatedData.schedule = {
+    //  days: scheduleDays,
+    //  hours: scheduleHours
+    //}
 
     setIsLoading(true)
 
@@ -122,8 +109,8 @@ export default function UserProfile({ navigation, isFocused }) {
         _id: userId,
         name: username,
         email: userEmail,
-        photo_url,
-        services,
+        photo_url: photoUrl,
+        services: userServices,
         schedule: {
           days: scheduleDays,
           hours: scheduleHours
@@ -150,16 +137,11 @@ export default function UserProfile({ navigation, isFocused }) {
     setIsLoading(false)
   }
 
-  handleToggle = (index, _, price, checked) => {
-    const updatedData = userServices
+  handleServicePriceChange = (index, value) => {
+    const updatedServices = { ...userServices }
+    updatedServices.prices[index] = Number(value)
 
-    updatedData.prices[index] = checked ? price : 0
-
-    setUserServices({
-      ...userServices,
-      prices: updatedData.prices
-    })
-    console.log(userServices)
+    setUserServices(updatedServices)
   }
 
   return (
@@ -217,19 +199,21 @@ export default function UserProfile({ navigation, isFocused }) {
                 {
                   userServices && userServices.names.map((name, index) => {
                     return (
-                      userServices.prices[index] > 0 &&
-                      <ProfessionalServiceView
+                      <EditableProfessionalService
                         key={index}
                         serviceText={name}
                         price={userServices.prices[index]}
-                        toggle={(serviceText, price, checked) =>
-                          handleToggle(index, serviceText, price, checked)}
+                        onPriceChange={(value) =>
+                          handleServicePriceChange(index, value)
+                        }
                       />
                     )
                   })
                 }
 
-                <ScheduleTable />
+                {
+                  userServices && <ScheduleTable />
+                }
 
                 <OkButton onPress={handleUserDataChange}>
                   <OkButtonText>Salvar</OkButtonText>

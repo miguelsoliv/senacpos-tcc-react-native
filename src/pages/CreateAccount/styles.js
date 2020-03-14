@@ -76,6 +76,18 @@ export const LockIcon = styled(Icon).attrs({
   margin-right: 12px;
 `
 
+export const RadioButtonsContainer = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+`
+
+export const ProfilePictureText = styled.Text`
+  align-self: center;
+  font-size: 16px;
+  margin-top: 10px;
+  font-weight: bold;
+`
+
 export const CreateAccountButton = styled.TouchableOpacity`
   height: 42px;
   align-self: center;
@@ -84,7 +96,7 @@ export const CreateAccountButton = styled.TouchableOpacity`
   border-radius: 6;
   justify-content: center;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 20px;
 `
 
 export const CreateAccountButtonText = styled.Text`

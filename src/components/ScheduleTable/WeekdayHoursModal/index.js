@@ -19,16 +19,7 @@ export default function WeekdayHoursModal({
   const [firstSelectedMinute, setFirstSelectedMinute] = useState()
   const [finalSelectedMinute, setFinalSelectedMinute] = useState()
 
-  const [pickerFirstHourItems, setPickerFirstHourItems] = useState([
-    { label: '7h', value: '07' }, { label: '8h', value: '08' },
-    { label: '9h', value: '09' }, { label: '10h', value: '10' },
-    { label: '11h', value: '11' }, { label: '12h', value: '12' },
-    { label: '13h', value: '13' }, { label: '14h', value: '14' },
-    { label: '15h', value: '15' }, { label: '16h', value: '16' },
-    { label: '17h', value: '17' }, { label: '18h', value: '18' },
-    { label: '19h', value: '19' }, { label: '20h', value: '20' },
-    { label: '21h', value: '21' }
-  ])
+  const [pickerFirstHourItems, setPickerFirstHourItems] = useState([])
   const [pickerFinalHourItems, setPickerFinalHourItems] = useState([])
   const pickerMinutesItems = [
     { label: '00min', value: '00' }, { label: '15min', value: '15' },
@@ -36,18 +27,17 @@ export default function WeekdayHoursModal({
   ]
 
   useEffect(() => {
-    if (!visibility) clearPickers()
+    if (!visibility) {
+      clearPickers()
+    } else {
+      console.log(minHourToDelete)
+      console.log(maxHourToDelete)
+      updateFirstHourPicker()
+    }
   }, [visibility])
 
   useEffect(() => {
-    if (maxHourToDelete > 0) {
-      const items = pickerFirstHourItems.filter((hourObject) => {
-        if (hourObject.value < minHourToDelete ||
-          hourObject.value > maxHourToDelete) return hourObject
-      })
-
-      setPickerFirstHourItems(items)
-    }
+    updateFirstHourPicker()
   }, [maxHourToDelete])
 
   handleAddInterval = () => {
@@ -85,11 +75,33 @@ export default function WeekdayHoursModal({
     setPickerFinalHourItems(items)
   }
 
+  updateFirstHourPicker = () => {
+    if (maxHourToDelete > 0) {
+      const items = pickerFirstHourItems.filter((hourObject) => {
+        if (hourObject.value < minHourToDelete ||
+          hourObject.value > maxHourToDelete) return hourObject
+      })
+
+      setPickerFirstHourItems(items)
+    }
+  }
+
   clearPickers = () => {
     setFirstSelectedHour(null)
     setFinalSelectedHour(null)
     setFirstSelectedMinute(null)
     setFinalSelectedMinute(null)
+
+    setPickerFirstHourItems([
+      { label: '7h', value: '07' }, { label: '8h', value: '08' },
+      { label: '9h', value: '09' }, { label: '10h', value: '10' },
+      { label: '11h', value: '11' }, { label: '12h', value: '12' },
+      { label: '13h', value: '13' }, { label: '14h', value: '14' },
+      { label: '15h', value: '15' }, { label: '16h', value: '16' },
+      { label: '17h', value: '17' }, { label: '18h', value: '18' },
+      { label: '19h', value: '19' }, { label: '20h', value: '20' },
+      { label: '21h', value: '21' }
+    ])
   }
 
   return (
