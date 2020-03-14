@@ -1,24 +1,33 @@
-# Visão geral
+# Boutique do Esmalte
+
+## Visão geral
 
 Desenvolvido com [React Native](https://reactnative.dev/), o aplicativo busca aperfeiçoar o atendimento dos serviços oferecidos pelas esmalterias e oferecer autonomia aos consumidores no agendamento e contratação dos serviços.
 
-## Proposta
+### Proposta
 
 Consiste na criação de uma agenda em que todas as manicures terão seu login individual, que pode ser configurado conforme seu horário de trabalho e tempo de realização de cada serviço. Cada cliente irá escolher o horário de agendamento com os valores de cada serviço e o total a ser cobrado.
 
 Quando for uma Esmalteria com mais de uma funcionária realizando o mesmo tipo de serviço, a cliente irá realizar seu cadastro e poderá escolher a manicure ou ainda visualizar a agenda de todas, possibilitando o agendamento dentro de sua disponibilidade e, ao escolher o tipo de serviço que realizará, o sistema informará o tempo e valor total do serviço escolhido no ato do agendamento.
 
-## Requisitos funcionais
+### Requisitos funcionais
 
-1. Criar conta (tanto como usuário, quanto como profissional)
-2. Logar no aplicativo
-3. Visualizar todos os profissionais cadastrados
-4. Visualizar detalhes do profissional
-5. Alterar dados da conta do usuário
-6. Marcar um atendimento
-7. Visualizar lista de atendimentos marcados (somente visível para o profissional)
+1. Criar conta
+2. Escolher tipo de usuário (cliente ou profissional)
+3. Logar no aplicativo
+4. Visualizar todas as profissionais cadastradas
+5. Visualizar detalhes da profissional
+6. Alterar dados da conta do usuário
+7. Marcar um atendimento
+8. Visualizar lista de atendimentos marcados (somente visível para a profissional)
 
-# Grupo
+### Requisitos não funcionais
+
+1. Armazenamento dos dados de perfil do usuário no dispositivo
+2. Mostrar/Ocultar componentes de acordo com o tipo de usuário logado
+3. Ao tirar foto com a câmera, salvar na galeria do dispositivo
+
+## Grupo
 
 [Andressa Martins Pereira](https://www.facebook.com/andressa.martinspereira)
 - Conceito geral do aplicativo
@@ -29,7 +38,7 @@ Quando for uma Esmalteria com mais de uma funcionária realizando o mesmo tipo d
 - Desenvolvimento
 - Testes
 
-# Bibliotecas
+## Bibliotecas
 
 - [React Navigation](https://github.com/react-navigation/react-navigation) : `npm i react-navigation`
 - [React Native Reanimated](https://github.com/software-mansion/react-native-reanimated) : `npm i react-native-reanimated`

@@ -20,17 +20,3 @@ export const changeDayNames = (daysArray) => {
 
   return newDaysName
 }
-
-export const getDisabledDays = (daysArray) => {
-  let days = [
-    'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
-  ]
-
-  daysArray.map((day) => {
-    days = days.filter((dayName) => {
-      return day != dayName ? days.indexOf(day) : null
-    })
-  })
-
-  return days
-}

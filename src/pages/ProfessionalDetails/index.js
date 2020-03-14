@@ -14,7 +14,7 @@ import {
   createStyledHeaderWithBackButton
 } from '../../utils/createStyledHeader'
 import formatCurrency from '../../utils/formatCurrency'
-import { changeDayNames, getDisabledDays } from '../../utils/handleDaysArray'
+import { changeDayNames } from '../../utils/handleDaysArray'
 import HandleAPIErrorMessage from '../../utils/handleAPIErrorMessage'
 
 import CalendarModal from './CalendarModal'
@@ -39,7 +39,6 @@ export default function ProfessionalDetails({ navigation }) {
   const servicesNames = navigation.getParam('servicesNames')
   const servicesPrices = navigation.getParam('servicesPrices')
   const scheduleDays = changeDayNames(navigation.getParam('scheduleDays'))
-  const disabledDays = getDisabledDays(scheduleDays)
   const [pickerHourItems, setPickerHourItems] = useState([])
   const scheduleHours = navigation.getParam('scheduleHours')
     .map((hoursArray) => {
@@ -49,10 +48,20 @@ export default function ProfessionalDetails({ navigation }) {
       }))
     })
 
+  const usableDays = scheduleDays.filter((day, index) => {
+    if (scheduleHours[index][0].value) return day
+  })
+
+  const disabledDays = []
+
+  scheduleDays.forEach(weekday => {
+    if (!usableDays.includes(weekday)) disabledDays.push(weekday)
+  })
+
   const [alreadyScheduledDates] = useState([])
   const [alreadyScheduledHours] = useState([])
 
-  getProfessionalSchedule = async () => {
+  const getProfessionalSchedule = async () => {
     const response = await listProfessionalSchedule(
       navigation.getParam('_id'), await storage.getToken()
     )
@@ -75,20 +84,15 @@ export default function ProfessionalDetails({ navigation }) {
     getProfessionalSchedule()
   }, [])
 
-  updateTotal = (serviceText, price, sum = true) => {
+  updateTotal = (serviceText, price, sum) => {
     sum ? setTotal(total + price) : setTotal(total - price)
 
-    console.log(index)
+    const index = description.names.indexOf(serviceText)
 
-    description.prices[index] = 1
+    const updatedDescription = { ...description }
+    updatedDescription.prices[index] = sum ? price : 0
 
-    sum ? setDescription({
-      ...description,
-      [serviceText]: price
-    }) : setDescription({
-      ...description,
-      [serviceText]: undefined
-    })
+    setDescription(updatedDescription)
   }
 
   handleDayChange = (date) => {
@@ -149,8 +153,11 @@ export default function ProfessionalDetails({ navigation }) {
 
     let formattedDescription = ''
 
-    Object.keys(description).forEach((key) => {
-      formattedDescription += `${key}: ${description[key]},`
+    description.names.forEach((serviceName, index) => {
+      if (description.prices[index] > 0) {
+        formattedDescription +=
+          `${serviceName}: ${formatCurrency(description.prices[index])}, `
+      }
     })
 
     const hoursParts = hour.split(':')
@@ -160,7 +167,7 @@ export default function ProfessionalDetails({ navigation }) {
 
     const response = await addScheduledHour(
       navigation.getParam('_id'), id_user, date, total,
-      formattedDescription.substring(0, formattedDescription.length - 1),
+      formattedDescription.substring(0, formattedDescription.length - 2),
       await storage.getToken()
     )
 
@@ -206,7 +213,8 @@ export default function ProfessionalDetails({ navigation }) {
                 key={index}
                 serviceText={service}
                 price={servicesPrices[index]}
-                toggle={(index) => updateTotal(index)}
+                toggle={(index, serviceText, price, sum) =>
+                  updateTotal(index, serviceText, price, sum)}
               />
             )
           })
@@ -224,12 +232,12 @@ export default function ProfessionalDetails({ navigation }) {
             }
           </SelectedDateText>
 
-          {/*<CalendarModal
+          <CalendarModal
             visibility={calendarVisible}
             onClose={() => setCalendarVisible(false)}
             onDaySelect={handleDayChange}
             disabledDays={disabledDays}
-          />*/}
+          />
 
           {
             calendarDate &&
