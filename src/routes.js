@@ -11,7 +11,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import {
   SplashScreen, Login, CreateAccount, ForgotPassword, Home, UserProfile,
-  ProfessionalDetails
+  ProfessionalDetails, ProfessionalSchedule
 } from './pages'
 
 import SidebarHeader from './components/SidebarHeader'
@@ -42,6 +42,12 @@ const UserProfileDrawer = createStackNavigator({
   }
 })
 
+const ProfessionalScheduleDrawer = createStackNavigator({
+  ProfessionalSchedule: {
+    screen: withNavigationFocus(ProfessionalSchedule)
+  }
+})
+
 const DrawerNavigator = createDrawerNavigator({
   Home: {
     screen: HomeDrawer,
@@ -60,6 +66,21 @@ const DrawerNavigator = createDrawerNavigator({
         <Icon name='person' size={24} color={tintColor} />
       )
     }
+  },
+  ProfessionalSchedule: {
+    screen: ProfessionalScheduleDrawer,
+    navigationOptions: ({ navigation }) => ({
+      drawerLabel: () => {
+        const check = navigation.dangerouslyGetParent().getParam('isCustomer')
+        return check ? null : 'Agenda'
+      },
+      drawerIcon: ({ tintColor }) => {
+        const check = navigation.dangerouslyGetParent().getParam('isCustomer')
+        return check ? null : (
+          <Icon name='event-note' size={24} color={tintColor} />
+        )
+      }
+    })
   }
 }, {
   contentComponent: SidebarHeader,

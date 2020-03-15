@@ -42,7 +42,7 @@ export default function Login({ navigation }) {
 
     if (response.data.user.photo_url) {
       response.data.user.photo_url =
-        Buffer.from(response.data.user.photo_url, 'base64')
+        Buffer.from(response.data.user.photo_url).toString('base64')
     }
 
     console.log(response.data.user.photo_url)
@@ -50,7 +50,9 @@ export default function Login({ navigation }) {
     storage.setToken(response.data.token)
     storage.setUser(response.data.user)
 
-    navigation.navigate('Home')
+    navigation.navigate('DrawerNavigator', {
+      'isCustomer': response.data.user.services ? false : true
+    })
   }
 
   return (

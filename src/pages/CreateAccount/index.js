@@ -95,7 +95,9 @@ export default function CreateAccount({ navigation }) {
       [
         {
           text: 'Entrar',
-          onPress: () => navigation.navigate('Home')
+          onPress: () => navigation.navigate('DrawerNavigator', {
+            'isCustomer': customerRadioButton
+          })
         }
       ]
     )

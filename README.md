@@ -56,6 +56,7 @@ Quando for uma Esmalteria com mais de uma funcionária realizando o mesmo tipo d
 - [React Native Modal](https://github.com/react-native-community/react-native-modal) : `npm i react-native-modal`
 - [Moment.js](https://github.com/moment/moment/) : `npm i moment`
 - [React Native Picker Select](https://github.com/lawnstarter/react-native-picker-select) : `npm i react-native-picker-select`
+- [buffer](https://github.com/feross/buffer): `npm i buffer`
 
 ---
 

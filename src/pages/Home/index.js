@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Animated } from 'react-native'
 
-import { FullscreenBackgroundImage, ListItemHome } from '../../components'
+import { FullscreenBackgroundImage } from '../../components'
+import ListItemHome from './ListItemHome'
 
 import storage from '../../services/storage'
 import { listProfessionals } from '../../services/api'
