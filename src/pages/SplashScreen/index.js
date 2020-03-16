@@ -12,15 +12,17 @@ export default function SplashScreen({ navigation }) {
 
   checkToken = async () => {
     const token = await storage.getToken()
-    const { services } = JSON.parse(await storage.getUser())
+    const user = JSON.parse(await storage.getUser())
 
     if (token) {
       const response = await validateToken(token)
 
       if (response.data.message === 'Valid token') {
-        navigation.navigate('DrawerNavigator', {
-          'isCustomer': services ? false : true
-        })
+        if (user) {
+          navigation.navigate('DrawerNavigator', {
+            'isCustomer': user.services ? false : true
+          })
+        }
         return
       } else {
         storage.setToken(null)

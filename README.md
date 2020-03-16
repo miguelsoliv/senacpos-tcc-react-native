@@ -26,6 +26,7 @@ Quando for uma Esmalteria com mais de uma funcionária realizando o mesmo tipo d
 1. Armazenamento dos dados de perfil do usuário no dispositivo
 2. Mostrar/Ocultar componentes de acordo com o tipo de usuário logado
 3. Ao tirar foto com a câmera, salvar na galeria do dispositivo
+4. Verificar se existe um token válido de um usuário que se logou no app. Caso exista, entrar direto na página principal.
 
 ## Grupo
 
