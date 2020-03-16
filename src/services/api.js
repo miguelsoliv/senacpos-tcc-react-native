@@ -54,10 +54,10 @@ export function listProfessionals(id, token) {
 }
 
 export function addScheduledHour(
-  id_professional, id_user, marked_date, total, description, token
+  id_professional, id_user, username, marked_date, total, description, token
 ) {
   return api.post('/schedule', {
-    id_professional, id_user, marked_date, total, description
+    id_professional, id_user, username, marked_date, total, description
   }, {
     headers: {
       authorization: `Bearer ${token}`

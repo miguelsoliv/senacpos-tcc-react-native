@@ -1,40 +1,41 @@
 import React from 'react'
-import { Buffer } from 'buffer'
+import moment from 'moment'
+
+import formatCurrency from '../../../utils/formatCurrency'
 
 import {
-  AnimatedContainer, TouchableContainer, HeaderContainer, ProfessionalImage,
-  InfoHeaderContainer, ProfessionalName, Description
+  AnimatedContainer, HeaderContainer, StyledIcon, ItemContainer, Content,
+  StyledText, Description, TotalText
 } from './styles'
 
-export default function ListItemHome({ navigation, item, translateX }) {
-  handleListItemPress = () => {
-    navigation.navigate('ProfessionalDetails', {
-      _id: item._id,
-      name: item.name,
-      scheduleDays: item.schedule.days,
-      scheduleHours: item.schedule.hours,
-      servicesNames: item.services.names,
-      servicesPrices: item.services.prices
-    })
-  }
+export default function ListItemSchedule({ item, translateX }) {
+  const markedDate = moment(item.marked_date)
+  const formattedDate = markedDate.format('DD/MM')
+  const formattedTime = markedDate.format('hh:mm')
+
+  const weekdays = [
+    'Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'
+  ]
 
   return (
     <AnimatedContainer style={{ transform: [{ translateX }] }}>
-      <TouchableContainer onPress={handleListItemPress}>
-        <HeaderContainer>
-          <ProfessionalImage
-            source={{
-              uri: `data:image/jpeg;base64,${new Buffer(item.photo_url)
-                .toString('base64')}`
-            }} />
+      <ItemContainer>
+        <Content>
+          <HeaderContainer>
+            <StyledIcon name={'event-available'} />
+            <StyledText style={{ flex: 1 }}>
+              {formattedDate} ({weekdays[markedDate.day()]})
+            </StyledText>
 
-          <InfoHeaderContainer>
-            <ProfessionalName>{item.name}</ProfessionalName>
-            <Description></Description>
-          </InfoHeaderContainer>
+            <StyledIcon name={'schedule'} />
+            <StyledText>{formattedTime}</StyledText>
+          </HeaderContainer>
 
-        </HeaderContainer>
-      </TouchableContainer>
+          <StyledText>{item.username}</StyledText>
+          <Description>{item.description}</Description>
+          <TotalText>Total: {formatCurrency(item.total)}</TotalText>
+        </Content>
+      </ItemContainer>
     </AnimatedContainer>
   )
 }

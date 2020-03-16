@@ -2,8 +2,8 @@ import React from 'react'
 import { Buffer } from 'buffer'
 
 import {
-  AnimatedContainer, TouchableContainer, HeaderContainer, ProfessionalImage,
-  InfoHeaderContainer, ProfessionalName, Description
+  AnimatedContainer, TouchableContainer, ItemContainer, ProfessionalImage,
+  InfoHeaderContainer, ProfessionalName
 } from './styles'
 
 export default function ListItemHome({ navigation, item, translateX }) {
@@ -21,7 +21,7 @@ export default function ListItemHome({ navigation, item, translateX }) {
   return (
     <AnimatedContainer style={{ transform: [{ translateX }] }}>
       <TouchableContainer onPress={handleListItemPress}>
-        <HeaderContainer>
+        <ItemContainer>
           <ProfessionalImage
             source={{
               uri: `data:image/jpeg;base64,${new Buffer(item.photo_url)
@@ -30,10 +30,8 @@ export default function ListItemHome({ navigation, item, translateX }) {
 
           <InfoHeaderContainer>
             <ProfessionalName>{item.name}</ProfessionalName>
-            <Description></Description>
           </InfoHeaderContainer>
-
-        </HeaderContainer>
+        </ItemContainer>
       </TouchableContainer>
     </AnimatedContainer>
   )

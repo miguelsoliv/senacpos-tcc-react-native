@@ -13,7 +13,7 @@ export const TouchableContainer = styled.TouchableOpacity`
   background-color: rgba(252, 242, 238, 0.85);
 `
 
-export const HeaderContainer = styled.View`
+export const ItemContainer = styled.View`
   padding: 12px;
   flex-direction: row;
   align-items: center;
@@ -37,11 +37,4 @@ export const ProfessionalName = styled.Text`
   color: #333;
   font-size: 16px;
   font-weight: bold;
-`
-
-export const Description = styled.Text.attrs({
-  numberOfLines: 2
-})`
-  padding: 5px 0 5px 0;
-  line-height: 18px;
 `

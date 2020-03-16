@@ -31,6 +31,7 @@ export default function Home({ navigation, isFocused }) {
     }
 
     setProfessionals(response.data)
+    animateListItems()
   }
 
   useEffect(() => {
@@ -38,12 +39,16 @@ export default function Home({ navigation, isFocused }) {
   }, [])
 
   useEffect(() => {
+    if (!isLoading) animateListItems()
+  }, [isFocused])
+
+  animateListItems = () => {
     Animated.spring(listAnimValue, {
       toValue: isFocused ? 1 : 0,
       tension: 20,
       useNativeDriver: true
     }).start()
-  }, [isFocused])
+  }
 
   return (
     <Container>
